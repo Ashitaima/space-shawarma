@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmo3jiqfe3oia"]
+
+[ext_resource type="Script" uid="uid://dahee8ix1vj8r" path="res://main_menu.gd" id="1_06t4h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rhts7"]
+font_size = 64
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06t4h")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 244.0
+offset_top = 107.0
+offset_right = 890.0
+offset_bottom = 195.0
+text = "Shawarma Simulator"
+label_settings = SubResource("LabelSettings_rhts7")
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 497.0
+offset_top = 252.0
+offset_right = 658.0
+offset_bottom = 331.0
+text = "Почати
+"

@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://coml4i5p12i3s"]
+
+[ext_resource type="Script" uid="uid://weihnulnl81x" path="res://game_level.gd" id="1_bwyfi"]
+
+[node name="GameLevel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bwyfi")
+
+[node name="TableArea" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 200.0
+offset_right = 50.0
+offset_bottom = 240.0
+
+[node name="CurrentDishLabel" type="Label" parent="TableArea"]
+layout_mode = 2
+text = "Empty"
+
+[node name="IngredientsArea" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 50.0
+offset_right = 763.0
+offset_bottom = 151.0
+
+[node name="Btn_Pita" type="Button" parent="IngredientsArea"]
+layout_mode = 2
+text = "Лаваш"
+
+[node name="Btn_Meat" type="Button" parent="IngredientsArea"]
+layout_mode = 2
+text = "М'ясо"
+
+[node name="Btn_Sauce" type="Button" parent="IngredientsArea"]
+layout_mode = 2
+text = "Соус"
+
+[node name="CustomerArea" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 156.0
+offset_bottom = 54.0
+
+[node name="OrderLabel" type="Label" parent="CustomerArea"]
+layout_mode = 2
+text = "Чекаю замовлення"
+
+[node name="PatienceBar" type="ProgressBar" parent="CustomerArea"]
+layout_mode = 2
+
+[node name="Btn_Serve" type="Button" parent="."]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 300.0
+offset_right = 572.0
+offset_bottom = 331.0
+text = "Віддати"
