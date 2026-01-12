@@ -4,13 +4,16 @@ extends Control
 var current_stack: Array = []
 var target_order: Array = []
 var score: int = 0
-var highscore: int = 0
 var is_game_over: bool = false
+
+# --- ЗБЕРЕЖЕНІ ДАНІ (PERSISTENT DATA) ---
+var highscore: int = 0
+var total_coins: int = 0  # <--- НОВЕ: Загальні гроші гравця
 
 # --- КОМБО І СКЛАДНІСТЬ ---
 var combo_multiplier: int = 0
 var difficulty_multiplier: float = 1.0
-const SAVE_PATH = "user://space_shawarma.save"
+const SAVE_PATH = "user://space_shawarma_v2.save" # Змінив ім'я файлу для нової версії
 
 # --- ЕФЕКТИ ---
 var shake_strength: float = 0.0
@@ -20,8 +23,6 @@ var ingredients_list = [
 	"🫓 Лаваш", "🥩 М'ясо", "🌶️ Соус", 
 	"🥒 Огірок", "🍅 Помідор", "🧀 Сир"
 ]
-
-# НОВЕ: Список можливих клієнтів
 var customer_faces_list = ["👽", "🤖", "🐙", "👨‍🚀", "👾", "👺", "🤠", "🧛"]
 
 # --- ПОСИЛАННЯ (NODES) ---
@@ -32,15 +33,15 @@ var customer_faces_list = ["👽", "🤖", "🐙", "👨‍🚀", "👾", "👺"
 @onready var btn_restart = $Btn_Restart
 @onready var label_highscore = $HighscoreLabel
 @onready var label_combo = $ComboLabel
-
-# НОВІ ПОСИЛАННЯ
-@onready var label_face = $CustomerArea/CustomerFace # Перевірте шлях!
-@onready var btn_trash = $Btn_Trash              # Перевірте шлях!
+@onready var label_face = $CustomerArea/CustomerFace
+@onready var btn_trash = $Btn_Trash
+@onready var label_coins = $CoinsLabel # <--- НОВЕ: Не забудьте створити це в сцені!
 
 func _ready():
-	load_highscore()
+	load_game_data() # Завантажуємо і рекорд, і монети
+	update_ui()      # Оновлюємо текст монет
 	
-	# Підключення інгредієнтів
+	# Підключення кнопок
 	$IngredientsArea/Btn_Pita.pressed.connect(func(): add_ingredient("🫓 Лаваш"))
 	$IngredientsArea/Btn_Meat.pressed.connect(func(): add_ingredient("🥩 М'ясо"))
 	$IngredientsArea/Btn_Sauce.pressed.connect(func(): add_ingredient("🌶️ Соус"))
@@ -50,8 +51,6 @@ func _ready():
 	
 	btn_serve.pressed.connect(_on_serve_pressed)
 	btn_restart.pressed.connect(_on_restart_pressed)
-	
-	# НОВЕ: Підключаємо смітник
 	btn_trash.pressed.connect(_on_trash_pressed)
 	
 	btn_restart.visible = false
@@ -62,21 +61,16 @@ func _ready():
 func _process(delta):
 	if is_game_over: return
 	
-	# 1. Логіка терпіння
 	progress_patience.value -= delta * 10 * difficulty_multiplier
 	
-	# НОВЕ: Зміна кольору клієнта (Злість)
 	if progress_patience.value < 30:
-		# Плавний перехід до червоного
 		label_face.modulate = label_face.modulate.lerp(Color(1, 0, 0), delta * 2)
 	else:
-		# Повернення до білого (нормального)
 		label_face.modulate = label_face.modulate.lerp(Color.WHITE, delta * 2)
 
 	if progress_patience.value <= 0:
 		game_over()
 		
-	# 2. Тряска екрану
 	if shake_strength > 0:
 		shake_strength = lerp(shake_strength, 0.0, 5.0 * delta)
 		self.position = Vector2(
@@ -93,18 +87,10 @@ func add_ingredient(item_name: String):
 	current_stack.append(item_name)
 	update_ui()
 
-# НОВЕ: Функція смітника
 func _on_trash_pressed():
 	if is_game_over or current_stack.is_empty(): return
-	
-	# Очищаємо стіл
 	current_stack.clear()
-	
-	# Штраф тільки по балах (маленький), але КОМБО ЗБЕРІГАЄТЬСЯ
-	if score > 0:
-		score -= 5
-	
-	# Візуальний ефект (тряска, але слабка)
+	if score > 0: score -= 5
 	apply_shake(5.0)
 	update_ui()
 
@@ -112,9 +98,8 @@ func new_customer():
 	current_stack.clear()
 	target_order.clear()
 	
-	# НОВЕ: Вибираємо обличчя клієнта
 	label_face.text = customer_faces_list.pick_random()
-	label_face.modulate = Color.WHITE # Скидаємо колір на старті
+	label_face.modulate = Color.WHITE
 	
 	var order_size = randi_range(3, 5)
 	target_order.append("🫓 Лаваш")
@@ -132,7 +117,6 @@ func _on_serve_pressed():
 	if is_game_over: return
 	
 	if current_stack == target_order:
-		# УСПІХ
 		combo_multiplier += 1
 		var bonus = (combo_multiplier - 1) * 5
 		score += 10 + bonus
@@ -141,7 +125,6 @@ func _on_serve_pressed():
 		animate_serving_dish()
 		new_customer()
 	else:
-		# ПОМИЛКА
 		if combo_multiplier > 1:
 			show_combo_break_effect()
 		combo_multiplier = 0
@@ -199,29 +182,58 @@ func update_ui():
 	var order_text = "  ".join(target_order)
 	label_dish.text = "На столі: " + dish_text
 	label_order.text = "Клієнт хоче: " + order_text + "\n\nРахунок: " + str(score)
+	
 	if score > highscore:
 		label_highscore.text = "Рекорд: " + str(score)
+	
+	# Оновлюємо лейбл монет
+	# Якщо гра йде, показуємо загальні + поточні зароблені, або просто загальні
+	label_coins.text = "🪙 " + str(total_coins)
 
-func save_highscore():
-	if score > highscore:
-		highscore = score
-		var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-		if file:
-			file.store_32(highscore)
-			file.close()
+# --- НОВА СИСТЕМА ЗБЕРЕЖЕННЯ ---
 
-func load_highscore():
+func save_game_data():
+	# Ми формуємо словник з усіма даними
+	var save_data = {
+		"highscore": highscore,
+		"coins": total_coins
+	}
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_var(save_data) # store_var зберігає будь-яку структуру даних
+		file.close()
+
+func load_game_data():
 	if FileAccess.file_exists(SAVE_PATH):
 		var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
-		highscore = file.get_32()
+		var data = file.get_var() # get_var читає структуру
 		file.close()
-	if label_highscore:
-		label_highscore.text = "Рекорд: " + str(highscore)
+		
+		# Перевіряємо, чи це правильні дані (словник)
+		if data is Dictionary:
+			highscore = data.get("highscore", 0)
+			total_coins = data.get("coins", 0)
+		else:
+			# Якщо старий файл або помилка - скидаємо
+			highscore = 0
+			total_coins = 0
+	
+	label_highscore.text = "Рекорд: " + str(highscore)
+	label_coins.text = "🪙 " + str(total_coins)
 
 func game_over():
 	is_game_over = true
-	save_highscore()
-	label_order.text = "ГРУ ЗАКІНЧЕНО!\nРахунок: " + str(score)
+	
+	# --- НАРАХУВАННЯ МОНЕТ ---
+	# Конвертуємо бали в монети. 1 бал = 1 монета (або змініть формулу)
+	var coins_earned = score
+	total_coins += coins_earned
+	
+	save_game_data() # Зберігаємо все
+	
+	label_order.text = "ГРУ ЗАКІНЧЕНО!\nЗароблено: +" + str(coins_earned) + " монет"
+	label_coins.text = "🪙 " + str(total_coins) # Оновлюємо вигляд гаманця
+	
 	btn_serve.disabled = true
 	btn_restart.visible = true
 	label_combo.text = ""
