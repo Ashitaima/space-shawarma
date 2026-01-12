@@ -1,62 +1,100 @@
-[gd_scene load_steps=2 format=3 uid="uid://coml4i5p12i3s"]
+[gd_scene load_steps=9 format=3 uid="uid://coml4i5p12i3s"]
 
 [ext_resource type="Script" uid="uid://weihnulnl81x" path="res://game_level.gd" id="1_bwyfi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwyfi"]
+bg_color = Color(0.36926877, 0.22772616, 0.022060297, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_df5pp"]
+bg_color = Color(0.49424565, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ibsu8"]
+bg_color = Color(0.6156863, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsd0w"]
+bg_color = Color(0, 0.39607844, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g7mx2"]
+bg_color = Color(0.35686275, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_efyo6"]
+bg_color = Color(0.68717164, 0.59826165, 0.18998307, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqyo1"]
+bg_color = Color(0.41981313, 0.41981313, 0.4198131, 1)
 
 [node name="GameLevel" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bwyfi")
 
 [node name="TableArea" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_top = 200.0
+offset_top = 338.0
 offset_right = 50.0
-offset_bottom = 240.0
+offset_bottom = 378.0
+scale = Vector2(2, 2)
 
 [node name="CurrentDishLabel" type="Label" parent="TableArea"]
 layout_mode = 2
 text = "Empty"
 
-[node name="IngredientsArea" type="VBoxContainer" parent="."]
+[node name="IngredientsArea" type="BoxContainer" parent="."]
 layout_mode = 0
-offset_left = 700.0
-offset_top = 50.0
-offset_right = 763.0
-offset_bottom = 151.0
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 696.0
+offset_bottom = 440.0
+scale = Vector2(1.5, 1.5)
+theme_override_constants/separation = 10
 
 [node name="Btn_Pita" type="Button" parent="IngredientsArea"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-text = "Лаваш"
+theme_override_styles/normal = SubResource("StyleBoxFlat_bwyfi")
+text = "🫓 Лаваш"
 
 [node name="Btn_Meat" type="Button" parent="IngredientsArea"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-text = "М'ясо"
+theme_override_styles/normal = SubResource("StyleBoxFlat_df5pp")
+text = "🥩М'ясо"
 
 [node name="Btn_Sauce" type="Button" parent="IngredientsArea"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-text = "Соус"
+theme_override_styles/normal = SubResource("StyleBoxFlat_ibsu8")
+text = "🌶️ Соус"
 
 [node name="Btn_Cucumber" type="Button" parent="IngredientsArea"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-text = "Огірок"
+theme_override_styles/normal = SubResource("StyleBoxFlat_qsd0w")
+text = "🥒 Огірок"
 
 [node name="Btn_Tomato" type="Button" parent="IngredientsArea"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-text = "Помідор
+theme_override_styles/normal = SubResource("StyleBoxFlat_g7mx2")
+text = "🍅 Помідор
 "
 
 [node name="Btn_Cheese" type="Button" parent="IngredientsArea"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-text = "Сир"
+theme_override_styles/normal = SubResource("StyleBoxFlat_efyo6")
+text = "🧀Сир"
 
 [node name="CustomerArea" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_right = 156.0
 offset_bottom = 54.0
+scale = Vector2(2, 2)
 
 [node name="OrderLabel" type="Label" parent="CustomerArea"]
 layout_mode = 2
@@ -67,11 +105,13 @@ layout_mode = 2
 
 [node name="Btn_Serve" type="Button" parent="."]
 layout_mode = 0
-offset_left = 500.0
-offset_top = 300.0
-offset_right = 572.0
-offset_bottom = 331.0
-text = "Віддати"
+offset_left = 492.0
+offset_top = 511.0
+offset_right = 582.0
+offset_bottom = 542.0
+scale = Vector2(2, 2)
+theme_override_styles/normal = SubResource("StyleBoxFlat_wqyo1")
+text = "🍽️ Віддати"
 
 [node name="Btn_Restart" type="Button" parent="."]
 visible = false
@@ -80,13 +120,16 @@ offset_left = 450.0
 offset_top = 250.0
 offset_right = 615.0
 offset_bottom = 281.0
+scale = Vector2(2, 2)
 text = "Спробувати ще раз"
 
 [node name="HighscoreLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 400.0
-offset_right = 556.0
-offset_bottom = 23.0
+offset_left = 888.0
+offset_top = 577.0
+offset_right = 1044.0
+offset_bottom = 600.0
+scale = Vector2(2, 2)
 text = "Рекорд: 0"
 
 [node name="ComboLabel" type="Label" parent="."]
@@ -95,4 +138,17 @@ offset_left = 400.0
 offset_top = 100.0
 offset_right = 448.0
 offset_bottom = 123.0
+scale = Vector2(2, 2)
 theme_override_colors/font_color = Color(1, 0.78431374, 0.23137255, 1)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(555, 304)
+amount = 100
+emission_shape = 3
+emission_rect_extents = Vector2(550, 300)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 50.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
