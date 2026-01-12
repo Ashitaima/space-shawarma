@@ -40,6 +40,19 @@ text = "М'ясо"
 layout_mode = 2
 text = "Соус"
 
+[node name="Btn_Cucumber" type="Button" parent="IngredientsArea"]
+layout_mode = 2
+text = "Огірок"
+
+[node name="Btn_Tomato" type="Button" parent="IngredientsArea"]
+layout_mode = 2
+text = "Помідор
+"
+
+[node name="Btn_Cheese" type="Button" parent="IngredientsArea"]
+layout_mode = 2
+text = "Сир"
+
 [node name="CustomerArea" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_right = 156.0
@@ -59,3 +72,27 @@ offset_top = 300.0
 offset_right = 572.0
 offset_bottom = 331.0
 text = "Віддати"
+
+[node name="Btn_Restart" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 450.0
+offset_top = 250.0
+offset_right = 615.0
+offset_bottom = 281.0
+text = "Спробувати ще раз"
+
+[node name="HighscoreLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 400.0
+offset_right = 556.0
+offset_bottom = 23.0
+text = "Рекорд: 0"
+
+[node name="ComboLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 100.0
+offset_right = 448.0
+offset_bottom = 123.0
+theme_override_colors/font_color = Color(1, 0.78431374, 0.23137255, 1)
