@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://coml4i5p12i3s"]
+[gd_scene load_steps=11 format=3 uid="uid://coml4i5p12i3s"]
 
 [ext_resource type="Script" uid="uid://weihnulnl81x" path="res://game_level.gd" id="1_bwyfi"]
+[ext_resource type="Script" uid="uid://dpujfrevxhx3v" path="res://pause_menu.gd" id="2_df5pp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwyfi"]
 bg_color = Color(0.36926877, 0.22772616, 0.022060297, 1)
@@ -134,7 +135,7 @@ text = "Спробувати ще раз"
 layout_mode = 0
 offset_left = 888.0
 offset_top = 577.0
-offset_right = 1044.0
+offset_right = 1007.5
 offset_bottom = 600.0
 scale = Vector2(2, 2)
 text = "Рекорд: 0"
@@ -179,3 +180,53 @@ offset_bottom = 593.0
 scale = Vector2(2, 2)
 theme_override_colors/font_color = Color(0.99607843, 0.95686275, 0.12941177, 1)
 text = "🪙 0"
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Control" type="Control" parent="PauseMenu"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_df5pp")
+
+[node name="Menu" type="VBoxContainer" parent="PauseMenu/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 440.5
+offset_top = 110.0
+offset_right = 569.5
+offset_bottom = 281.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+
+[node name="Btn_Resume" type="Button" parent="PauseMenu/Control/Menu"]
+layout_mode = 2
+text = "Продовжити"
+
+[node name="Btn_Shop" type="Button" parent="PauseMenu/Control/Menu"]
+layout_mode = 2
+text = "Магазин
+"
+
+[node name="Btn_Settings" type="Button" parent="PauseMenu/Control/Menu"]
+layout_mode = 2
+text = "Налаштування"
+
+[node name="Btn_Main_Menu" type="Button" parent="PauseMenu/Control/Menu"]
+layout_mode = 2
+text = "Вийти у меню"
+
+[node name="Btn_Exit" type="Button" parent="PauseMenu/Control/Menu"]
+layout_mode = 2
+text = "Вийти з гри"
+
+[connection signal="pressed" from="PauseMenu/Control/Menu/Btn_Resume" to="PauseMenu/Control" method="_on_btn_Resume_pressed"]
+[connection signal="pressed" from="PauseMenu/Control/Menu/Btn_Main_Menu" to="PauseMenu/Control" method="_on_btn_Main_Menu_pressed"]
+[connection signal="pressed" from="PauseMenu/Control/Menu/Btn_Exit" to="PauseMenu/Control" method="_on_btn_Exit_pressed"]

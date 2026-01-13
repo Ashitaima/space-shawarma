@@ -1,11 +1,14 @@
 extends Control
 
-@onready var start_button = $StartButton
-
-func _ready():
-	start_button.pressed.connect(_on_start_pressed)
-
-func _on_start_pressed():
-	# УВАГА: Тут має бути точна назва твого файлу з рівнем!
-	# Судячи з твого скріншоту, він називається "game_level.tscn"
+func _on_btn_Start_pressed():
+	# Завантажує сцену з грою
 	get_tree().change_scene_to_file("res://game_level.tscn")
+
+func _on_btn_Shop_pressed():
+	get_tree().change_scene_to_file("res://Shop.tscn")
+
+func _on_btn_Settings_pressed():
+	print("Відкриваємо налаштування") 
+
+func _on_btn_Exit_pressed():
+	get_tree().quit()
