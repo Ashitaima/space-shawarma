@@ -191,7 +191,18 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_df5pp")
 
-[node name="Menu" type="VBoxContainer" parent="PauseMenu/Control"]
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1118.0
+offset_bottom = 616.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="VMenu" type="VBoxContainer" parent="PauseMenu/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -206,27 +217,55 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
 
-[node name="Btn_Resume" type="Button" parent="PauseMenu/Control/Menu"]
+[node name="Btn_Resume" type="Button" parent="PauseMenu/Control/VMenu"]
 layout_mode = 2
 text = "Продовжити"
 
-[node name="Btn_Shop" type="Button" parent="PauseMenu/Control/Menu"]
+[node name="Btn_Shop" type="Button" parent="PauseMenu/Control/VMenu"]
 layout_mode = 2
 text = "Магазин
 "
 
-[node name="Btn_Settings" type="Button" parent="PauseMenu/Control/Menu"]
+[node name="Btn_Settings" type="Button" parent="PauseMenu/Control/VMenu"]
 layout_mode = 2
 text = "Налаштування"
 
-[node name="Btn_Main_Menu" type="Button" parent="PauseMenu/Control/Menu"]
+[node name="Btn_Main_Menu" type="Button" parent="PauseMenu/Control/VMenu"]
 layout_mode = 2
 text = "Вийти у меню"
 
-[node name="Btn_Exit" type="Button" parent="PauseMenu/Control/Menu"]
+[node name="Btn_Exit" type="Button" parent="PauseMenu/Control/VMenu"]
 layout_mode = 2
 text = "Вийти з гри"
 
-[connection signal="pressed" from="PauseMenu/Control/Menu/Btn_Resume" to="PauseMenu/Control" method="_on_btn_Resume_pressed"]
-[connection signal="pressed" from="PauseMenu/Control/Menu/Btn_Main_Menu" to="PauseMenu/Control" method="_on_btn_Main_Menu_pressed"]
-[connection signal="pressed" from="PauseMenu/Control/Menu/Btn_Exit" to="PauseMenu/Control" method="_on_btn_Exit_pressed"]
+[node name="Settings_Panel" type="Panel" parent="PauseMenu/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Control/Settings_Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Volume" type="Label" parent="PauseMenu/Control/Settings_Panel/VBoxContainer"]
+layout_mode = 2
+text = "Гучність"
+
+[node name="Volume_Slider" type="HSlider" parent="PauseMenu/Control/Settings_Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Fullscreen_Checkbox" type="CheckBox" parent="PauseMenu/Control/Settings_Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Btn_Back" type="Button" parent="PauseMenu/Control/Settings_Panel/VBoxContainer"]
+layout_mode = 2
+text = "Назад"
+
+[connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Resume" to="PauseMenu/Control" method="_on_btn_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Settings" to="PauseMenu/Control" method="_on_btn_settings_pressed"]
+[connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Main_Menu" to="PauseMenu/Control" method="_on_btn_Main_Menu_pressed"]
+[connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Exit" to="PauseMenu/Control" method="_on_btn_quit_pressed"]
+[connection signal="value_changed" from="PauseMenu/Control/Settings_Panel/VBoxContainer/Volume_Slider" to="PauseMenu/Control" method="_on_volume_slider_value_changed"]
+[connection signal="toggled" from="PauseMenu/Control/Settings_Panel/VBoxContainer/Fullscreen_Checkbox" to="PauseMenu/Control" method="_on_fullscreen_check_toggled"]
+[connection signal="pressed" from="PauseMenu/Control/Settings_Panel/VBoxContainer/Btn_Back" to="PauseMenu/Control" method="_on_btn_back_pressed"]

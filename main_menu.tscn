@@ -23,34 +23,71 @@ offset_bottom = 322.0
 text = "Shawarma Simulator"
 label_settings = SubResource("LabelSettings_rhts7")
 
-[node name="MainMenu" type="VBoxContainer" parent="Titel"]
+[node name="Settings_Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings_Panel"]
 layout_mode = 0
-offset_left = 175.0
-offset_top = 100.0
-offset_right = 325.0
-offset_bottom = 236.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Volume" type="Label" parent="Settings_Panel/VBoxContainer"]
+layout_mode = 2
+text = "Гучність"
+
+[node name="Volume_Slider" type="HSlider" parent="Settings_Panel/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="Fullscreen_Checkbox" type="CheckBox" parent="Settings_Panel/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "На весь екран
+"
+
+[node name="Btn_Back" type="Button" parent="Settings_Panel/VBoxContainer"]
+layout_mode = 2
+text = "Назад"
+
+[node name="MainMenu" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 419.0
+offset_top = 334.0
+offset_right = 569.0
+offset_bottom = 470.0
 scale = Vector2(2, 2)
 
-[node name="Btn_Start" type="Button" parent="Titel/MainMenu"]
+[node name="Btn_Start" type="Button" parent="MainMenu"]
 layout_mode = 2
 text = "Почати
 "
 
-[node name="Btn_Shop" type="Button" parent="Titel/MainMenu"]
+[node name="Btn_Shop" type="Button" parent="MainMenu"]
 layout_mode = 2
 text = "Магазин
 "
 
-[node name="Btn_Settings" type="Button" parent="Titel/MainMenu"]
+[node name="Btn_Settings" type="Button" parent="MainMenu"]
 layout_mode = 2
 text = "Налаштування
 "
 
-[node name="Btn_Exit" type="Button" parent="Titel/MainMenu"]
+[node name="Btn_Exit" type="Button" parent="MainMenu"]
 layout_mode = 2
 text = "Вийти"
 
-[connection signal="pressed" from="Titel/MainMenu/Btn_Start" to="." method="_on_btn_Start_pressed"]
-[connection signal="pressed" from="Titel/MainMenu/Btn_Shop" to="." method="_on_btn_Shop_pressed"]
-[connection signal="pressed" from="Titel/MainMenu/Btn_Settings" to="." method="_on_btn_Settings_pressed"]
-[connection signal="pressed" from="Titel/MainMenu/Btn_Exit" to="." method="_on_btn_Exit_pressed"]
+[connection signal="value_changed" from="Settings_Panel/VBoxContainer/Volume_Slider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="toggled" from="Settings_Panel/VBoxContainer/Fullscreen_Checkbox" to="." method="_on_fullscreen_check_toggled"]
+[connection signal="pressed" from="Settings_Panel/VBoxContainer/Btn_Back" to="." method="_on_btn_back_pressed"]
+[connection signal="pressed" from="MainMenu/Btn_Start" to="." method="_on_btn_Start_pressed"]
+[connection signal="pressed" from="MainMenu/Btn_Shop" to="." method="_on_btn_Shop_pressed"]
+[connection signal="pressed" from="MainMenu/Btn_Settings" to="." method="_on_btn_Settings_pressed"]
+[connection signal="pressed" from="MainMenu/Btn_Exit" to="." method="_on_btn_Exit_pressed"]
