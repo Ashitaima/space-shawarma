@@ -1,19 +1,14 @@
 extends Control
 
-# --- ДАНІ ГРИ ---
+# --- ДАНІ ПОТОЧНОЇ ГРИ ---
 var current_stack: Array = []
 var target_order: Array = []
 var score: int = 0
 var is_game_over: bool = false
 
-# --- ЗБЕРЕЖЕНІ ДАНІ (PERSISTENT DATA) ---
-var highscore: int = 0
-var total_coins: int = 0  # <--- НОВЕ: Загальні гроші гравця
-
 # --- КОМБО І СКЛАДНІСТЬ ---
 var combo_multiplier: int = 0
 var difficulty_multiplier: float = 1.0
-const SAVE_PATH = "user://space_shawarma_v2.save" # Змінив ім'я файлу для нової версії
 
 # --- ЕФЕКТИ ---
 var shake_strength: float = 0.0
@@ -35,13 +30,16 @@ var customer_faces_list = ["👽", "🤖", "🐙", "👨‍🚀", "👾", "👺"
 @onready var label_combo = $ComboLabel
 @onready var label_face = $CustomerArea/CustomerFace
 @onready var btn_trash = $Btn_Trash
-@onready var label_coins = $CoinsLabel # <--- НОВЕ: Не забудьте створити це в сцені!
+@onready var label_coins = $CoinsLabel 
+
+# 1. НОВЕ: Посилання на кнопку завершення (перевір ім'я в сцені!)
+@onready var btn_finish_game = $Btn_Finish_Game 
 
 func _ready():
-	load_game_data() # Завантажуємо і рекорд, і монети
-	update_ui()      # Оновлюємо текст монет
+	# Оновлюємо інтерфейс, беручи дані з GlobalSettings
+	update_ui()
 	
-	# Підключення кнопок
+	# Підключення кнопок інгредієнтів
 	$IngredientsArea/Btn_Pita.pressed.connect(func(): add_ingredient("🫓 Лаваш"))
 	$IngredientsArea/Btn_Meat.pressed.connect(func(): add_ingredient("🥩 М'ясо"))
 	$IngredientsArea/Btn_Sauce.pressed.connect(func(): add_ingredient("🌶️ Соус"))
@@ -49,9 +47,13 @@ func _ready():
 	$IngredientsArea/Btn_Tomato.pressed.connect(func(): add_ingredient("🍅 Помідор"))
 	$IngredientsArea/Btn_Cheese.pressed.connect(func(): add_ingredient("🧀 Сир"))
 	
+	# Підключення основних кнопок
 	btn_serve.pressed.connect(_on_serve_pressed)
 	btn_restart.pressed.connect(_on_restart_pressed)
 	btn_trash.pressed.connect(_on_trash_pressed)
+	
+	# 2. НОВЕ: Підключаємо кнопку завершення гри
+	btn_finish_game.pressed.connect(_on_finish_game_pressed)
 	
 	btn_restart.visible = false
 	label_combo.text = "" 
@@ -109,7 +111,16 @@ func new_customer():
 	for i in range(order_size - 1):
 		target_order.append(fillings.pick_random())
 	
-	progress_patience.value = 100
+	# --- ЛОГІКА БОНУСУ (З магазину) ---
+	var start_patience = 100
+	
+	if "time_upgrade" in GlobalSettings.bought_items:
+		start_patience = 150 # Бонус часу
+		# print("Бонус часу активний!")
+	
+	progress_patience.value = start_patience
+	# --------------------------
+	
 	difficulty_multiplier += 0.05 
 	update_ui()
 
@@ -137,6 +148,12 @@ func _on_serve_pressed():
 
 func _on_restart_pressed():
 	get_tree().reload_current_scene()
+
+# 3. НОВЕ: Функція для кнопки завершення
+func _on_finish_game_pressed():
+	if is_game_over: return
+	# Просто викликаємо Game Over, ніби час вийшов, але зберігаємо очки
+	game_over()
 
 # --- ВІЗУАЛ ---
 
@@ -183,57 +200,28 @@ func update_ui():
 	label_dish.text = "На столі: " + dish_text
 	label_order.text = "Клієнт хоче: " + order_text + "\n\nРахунок: " + str(score)
 	
-	if score > highscore:
+	if score > GlobalSettings.highscore:
 		label_highscore.text = "Рекорд: " + str(score)
+	else:
+		label_highscore.text = "Рекорд: " + str(GlobalSettings.highscore)
 	
-	# Оновлюємо лейбл монет
-	# Якщо гра йде, показуємо загальні + поточні зароблені, або просто загальні
-	label_coins.text = "🪙 " + str(total_coins)
-
-# --- НОВА СИСТЕМА ЗБЕРЕЖЕННЯ ---
-
-func save_game_data():
-	# Ми формуємо словник з усіма даними
-	var save_data = {
-		"highscore": highscore,
-		"coins": total_coins
-	}
-	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	if file:
-		file.store_var(save_data) # store_var зберігає будь-яку структуру даних
-		file.close()
-
-func load_game_data():
-	if FileAccess.file_exists(SAVE_PATH):
-		var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
-		var data = file.get_var() # get_var читає структуру
-		file.close()
-		
-		# Перевіряємо, чи це правильні дані (словник)
-		if data is Dictionary:
-			highscore = data.get("highscore", 0)
-			total_coins = data.get("coins", 0)
-		else:
-			# Якщо старий файл або помилка - скидаємо
-			highscore = 0
-			total_coins = 0
-	
-	label_highscore.text = "Рекорд: " + str(highscore)
-	label_coins.text = "🪙 " + str(total_coins)
+	var display_coins = GlobalSettings.total_coins + score
+	label_coins.text = "🪙 " + str(display_coins)
 
 func game_over():
 	is_game_over = true
 	
-	# --- НАРАХУВАННЯ МОНЕТ ---
-	# Конвертуємо бали в монети. 1 бал = 1 монета (або змініть формулу)
+	# Конвертуємо бали поточної сесії в монети
 	var coins_earned = score
-	total_coins += coins_earned
 	
-	save_game_data() # Зберігаємо все
+	# Відправляємо дані в "Банк"
+	GlobalSettings.save_game_results(score, coins_earned)
 	
 	label_order.text = "ГРУ ЗАКІНЧЕНО!\nЗароблено: +" + str(coins_earned) + " монет"
-	label_coins.text = "🪙 " + str(total_coins) # Оновлюємо вигляд гаманця
+	label_coins.text = "🪙 " + str(GlobalSettings.total_coins)
 	
+	# 4. НОВЕ: Ховаємо кнопку завершення та вимикаємо стіл
+	btn_finish_game.visible = false
 	btn_serve.disabled = true
 	btn_restart.visible = true
 	label_combo.text = ""

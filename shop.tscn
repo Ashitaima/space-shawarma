@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://bayaw128ioc4g"]
+
+[ext_resource type="Script" uid="uid://vroksnxuydwo" path="res://shop.gd" id="1_e7rdd"]
+[ext_resource type="Texture2D" uid="uid://budkhy4b0fwer" path="res://icon.svg" id="2_blqjs"]
+
+[node name="Shop" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e7rdd")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Btn_Back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 558.0
+offset_right = 192.0
+offset_bottom = 589.0
+theme_override_font_sizes/font_size = 21
+text = "Назад в меню"
+
+[node name="CoinsLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 520.0
+offset_top = 31.0
+offset_right = 626.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 24
+text = "Гроші: 0"
+uppercase = true
+
+[node name="Btn_Buy_Time" type="Button" parent="."]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 275.0
+offset_right = 324.0
+offset_bottom = 306.0
+text = "Купити покращення (50 монет)"
+
+[node name="Icon_Time" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 122.0
+offset_right = 248.0
+offset_bottom = 250.0
+texture = ExtResource("2_blqjs")
+
+[node name="Btn_Reset" type="Button" parent="."]
+layout_mode = 0
+offset_left = 919.0
+offset_top = 30.0
+offset_right = 1116.0
+offset_bottom = 150.0
+text = "Скинути усі покупки, та гроші(можна змінити для отримання грошей)"
+autowrap_mode = 2

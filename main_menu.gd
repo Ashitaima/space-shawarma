@@ -5,7 +5,8 @@ func _on_btn_Start_pressed():
 	get_tree().change_scene_to_file("res://game_level.tscn")
 
 func _on_btn_Shop_pressed():
-	get_tree().change_scene_to_file("res://Shop.tscn")
+	print("Кнопку магазину натиснуто!")
+	get_tree().change_scene_to_file("res://shop.tscn")
 
 func _on_btn_Settings_pressed():
 	$Settings_Panel.visible = true
