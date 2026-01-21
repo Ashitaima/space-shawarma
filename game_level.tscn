@@ -124,10 +124,10 @@ text = "Рекорд: 0"
 
 [node name="ComboLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 270.0
-offset_top = 35.0
-offset_right = 318.0
-offset_bottom = 58.0
+offset_left = 379.0
+offset_top = 55.0
+offset_right = 448.5
+offset_bottom = 78.0
 scale = Vector2(2, 2)
 theme_override_colors/font_color = Color(1, 0.78431374, 0.23137255, 1)
 
@@ -178,10 +178,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 14.0
-offset_top = -2.0
-offset_right = 1112.0
-offset_bottom = 614.0
+offset_left = 18.0
+offset_top = -7.0
+offset_right = 1116.0
+offset_bottom = 609.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5882353)
@@ -264,11 +264,12 @@ text = "Назад"
 
 [node name="Btn_Finish_Game" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1032.0
-offset_top = 396.0
-offset_right = 1304.0
-offset_bottom = 450.0
-text = "Завершити гру зі збереженням зароблених грошей"
+offset_left = 525.0
+offset_top = 578.0
+offset_right = 668.0
+offset_bottom = 632.0
+text = "Завершити гру
+"
 autowrap_mode = 3
 autowrap_trim_flags = 192
 
@@ -294,12 +295,16 @@ offset_right = 213.0
 offset_bottom = 127.5
 
 [node name="OrderLabel" type="Label" parent="CustomersContainer/Slot1"]
-layout_mode = 0
-offset_left = 14.0
-offset_top = 178.0
-offset_right = 192.0
-offset_bottom = 258.0
-theme_override_colors/font_color = Color(1, 0.13725491, 0.039215688, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.009287925
+anchor_top = 1.1065089
+anchor_right = 0.99071205
+anchor_bottom = 1.1065089
+offset_bottom = 23.0
+grow_horizontal = 2
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="PatienceBar" type="ProgressBar" parent="CustomersContainer/Slot1"]
 layout_mode = 1
@@ -319,7 +324,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
 offset_top = 1.0
+offset_right = -1.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -338,11 +345,16 @@ offset_right = 237.09961
 offset_bottom = 149.9621
 
 [node name="OrderLabel" type="Label" parent="CustomersContainer/Slot2"]
-layout_mode = 0
-offset_left = 22.0
-offset_top = 184.0
-offset_right = 194.0
-offset_bottom = 264.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0030864198
+anchor_top = 1.0887574
+anchor_right = 1.0030864
+anchor_bottom = 1.0887574
+offset_bottom = 23.0
+grow_horizontal = 2
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="PatienceBar" type="ProgressBar" parent="CustomersContainer/Slot2"]
 layout_mode = 1
@@ -361,10 +373,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = -1.0
-offset_right = 1.0
-offset_bottom = -1.0
+offset_left = -1.0
+offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
@@ -382,11 +392,15 @@ offset_right = 239.87958
 offset_bottom = 156.0
 
 [node name="OrderLabel" type="Label" parent="CustomersContainer/Slot3"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 177.0
-offset_right = 200.0
-offset_bottom = 257.0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -3.0
+offset_top = 179.0
+offset_right = -3.0
+offset_bottom = 202.0
+grow_horizontal = 2
+autowrap_mode = 3
 
 [node name="PatienceBar" type="ProgressBar" parent="CustomersContainer/Slot3"]
 layout_mode = 1
@@ -406,9 +420,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1.0
 offset_top = 1.0
-offset_right = -1.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2

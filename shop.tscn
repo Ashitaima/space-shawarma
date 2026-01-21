@@ -59,9 +59,9 @@ texture = ExtResource("2_blqjs")
 
 [node name="Btn_Reset" type="Button" parent="."]
 layout_mode = 0
-offset_left = 919.0
-offset_top = 30.0
-offset_right = 1116.0
-offset_bottom = 150.0
-text = "Скинути усі покупки, та гроші(можна змінити для отримання грошей)"
+offset_left = 918.0
+offset_top = 42.0
+offset_right = 1115.0
+offset_bottom = 103.0
+text = "Скинути усі покупки, та гроші"
 autowrap_mode = 2

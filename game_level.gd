@@ -3,7 +3,7 @@ extends Control
 # --- СТРУКТУРА КЛІЄНТА ---
 class CustomerSlot:
 	var root_node: Node
-	var face: Label # Або TextureRect
+	var face: Label # Поки що Label (смайлики)
 	var order_label: Label
 	var patience_bar: ProgressBar
 	var btn_give: Button
@@ -33,7 +33,6 @@ var ingredients_list = ["🫓 Лаваш", "🥩 М'ясо", "🌶️ Соус",
 var customer_faces_list = ["👽", "🤖", "🐙", "👨‍🚀", "👾", "👺", "🤠", "🧛"]
 
 # --- ПОСИЛАННЯ (NODES) ---
-# Ми залишаємо тільки ті, що існують на сцені!
 @onready var label_dish = $TableArea/CurrentDishLabel
 @onready var label_highscore = $HighscoreLabel
 @onready var label_coins = $CoinsLabel 
@@ -41,39 +40,41 @@ var customer_faces_list = ["👽", "🤖", "🐙", "👨‍🚀", "👾", "👺"
 @onready var btn_finish_game = $Btn_Finish_Game 
 @onready var btn_restart = $Btn_Restart
 
-# Старі змінні label_order, progress_patience та label_face ВИДАЛЕНІ,
-# бо тепер вони живуть всередині масиву "slots"
-
 func _ready():
 	# 1. ІНІЦІАЛІЗАЦІЯ СЛОТІВ
-	# Важливо: Переконайся, що у тебе на сцені є CustomersContainer, 
-	# а в ньому Slot1, Slot2, Slot3
 	for i in range(1, 4): 
-		# Формуємо шлях: CustomersContainer/Slot1, CustomersContainer/Slot2...
 		var path = "CustomersContainer/Slot" + str(i)
 		
-		# Перевірка, чи існує слот (щоб гра не вилітала, якщо ти назвав їх інакше)
 		if has_node(path):
 			var slot_node = get_node(path)
 			var new_slot = CustomerSlot.new()
 			new_slot.root_node = slot_node
 			
-			# Отримуємо посилання на елементи всередині слота
+			# Отримуємо посилання
 			new_slot.face = slot_node.get_node("Face")
 			new_slot.order_label = slot_node.get_node("OrderLabel")
 			new_slot.patience_bar = slot_node.get_node("PatienceBar")
 			new_slot.btn_give = slot_node.get_node("Btn_Give")
 			
+			# Увімкнемо автоперенос тексту кодом (щоб не лазити в налаштування)
+			new_slot.order_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			
 			new_slot.btn_give.pressed.connect(_on_customer_clicked.bind(i-1))
-			new_slot.root_node.modulate.a = 0.0 # Робимо прозорим (невидимим)
-			new_slot.btn_give.disabled = true   # Вимикаємо кнопку, щоб не можна було натиснути
+			
+			# Ховаємо слот
+			new_slot.root_node.modulate.a = 0.0 
+			new_slot.btn_give.disabled = true   
+			
 			slots.append(new_slot)
+			print("Слот підключено: ", path) # ДІАГНОСТИКА
 		else:
-			print("ПОМИЛКА: Не знайдено вузол " + path)
+			print("🔴 ПОМИЛКА: Не знайдено вузол " + path + ". Перевір назву в сцені!")
+
+	print("✅ Всього знайдено слотів: ", slots.size()) # МАЄ БУТИ 3
 
 	update_ui()
 	
-	# Підключення кнопок
+	# Підключення кнопок інгредієнтів
 	$IngredientsArea/Btn_Pita.pressed.connect(func(): add_ingredient("🫓 Лаваш"))
 	$IngredientsArea/Btn_Meat.pressed.connect(func(): add_ingredient("🥩 М'ясо"))
 	$IngredientsArea/Btn_Sauce.pressed.connect(func(): add_ingredient("🌶️ Соус"))
@@ -158,11 +159,10 @@ func add_ingredient(item_name: String):
 	update_ui()
 
 func _on_customer_clicked(slot_index: int):
-	print("Натиснуто на слот №", slot_index)
+	# print("Натиснуто на слот №", slot_index)
 	if is_game_over: return
 	
 	var slot = slots[slot_index]
-	print("Слот активний? ", slot.is_active)
 	
 	if not slot.is_active: return
 		
@@ -170,7 +170,10 @@ func _on_customer_clicked(slot_index: int):
 		var money = calculate_money(slot)
 		score += money
 		show_floating_text("+" + str(money), Color.GREEN, slot.root_node.global_position)
+		
+		# Передаємо true, бо успіх
 		customer_leaves(slot, true)
+		
 		current_stack.clear()
 		update_ui()
 	else:
@@ -183,12 +186,22 @@ func calculate_money(slot) -> int:
 		money = int(money * 0.7) 
 	return money
 
+# --- ОСЬ ТУТ ВИПРАВЛЕНА ЛОГІКА ---
 func customer_leaves(slot, success: bool):
+	# 1. Спочатку звільняємо місце!
 	slot.is_active = false
-	slot.root_node.modulate.a = 0.0      # Знову прозорий
-	slot.btn_give.disabled = true        # Кнопка вимкнена
 	
-	if not success:
+	# 2. Ховаємо слот
+	slot.root_node.modulate.a = 0.0 
+	slot.btn_give.disabled = true
+	
+	if success:
+		# Якщо успіх - прискорюємо появу наступного!
+		# Якщо до наступного ще довго (> 2 сек), то він прийде через 0.5-1.5 сек
+		if spawn_timer > 2.0:
+			spawn_timer = randf_range(0.5, 1.5)
+	else:
+		# Якщо провал/пішов сам
 		score -= 10
 		if score < 0: score = 0
 		show_floating_text("-10 🤬", Color.RED, slot.root_node.global_position)
@@ -198,7 +211,6 @@ func _on_trash_pressed():
 	current_stack.clear()
 	update_ui()
 
-# --- ВИПРАВЛЕНА ФУНКЦІЯ UPDATE_UI ---
 func update_ui():
 	var dish_text = " + ".join(current_stack) 
 	label_dish.text = "На столі: " + dish_text
