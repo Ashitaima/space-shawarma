@@ -12,6 +12,18 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
+		# ВАРІАНТ 1: Якщо відкриті Налаштування -> повертаємось до кнопок меню
+		if $Settings_Panel.visible:
+			show_main_buttons()
+			get_viewport().set_input_as_handled() # Щоб ESC не спрацював двічі
+			return
+
+		# ВАРІАНТ 2: Якщо відкритий Магазин (головні кнопки сховані, а налаштувань немає)
+		# Ми нічого не робимо, бо магазин сам обробить свій ESC
+		if $VMenu.visible == false:
+			return 
+
+		# ВАРІАНТ 3: Якщо ми просто в меню паузи -> закриваємо паузу і граємо далі
 		toggle_pause()
 
 func toggle_pause():

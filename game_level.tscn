@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://coml4i5p12i3s"]
+[gd_scene load_steps=10 format=3 uid="uid://coml4i5p12i3s"]
 
 [ext_resource type="Script" uid="uid://weihnulnl81x" path="res://game_level.gd" id="1_bwyfi"]
 [ext_resource type="Script" uid="uid://dpujfrevxhx3v" path="res://pause_menu.gd" id="2_df5pp"]
@@ -21,9 +21,6 @@ bg_color = Color(0.35686275, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_efyo6"]
 bg_color = Color(0.68717164, 0.59826165, 0.18998307, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqyo1"]
-bg_color = Color(0.41981313, 0.41981313, 0.4198131, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7qp1"]
 bg_color = Color(1, 0, 0, 1)
 
@@ -32,17 +29,20 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 4.0
-offset_bottom = 5.0
+offset_left = 7.0
+offset_top = -4.0
+offset_right = 7.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bwyfi")
 
 [node name="TableArea" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_top = 338.0
-offset_right = 50.0
-offset_bottom = 378.0
+offset_left = 2.0
+offset_top = 22.0
+offset_right = 52.0
+offset_bottom = 62.0
 scale = Vector2(2, 2)
 
 [node name="CurrentDishLabel" type="Label" parent="TableArea"]
@@ -51,10 +51,10 @@ text = "Empty"
 
 [node name="IngredientsArea" type="BoxContainer" parent="."]
 layout_mode = 0
-offset_left = 150.0
-offset_top = 400.0
-offset_right = 696.0
-offset_bottom = 440.0
+offset_left = 163.0
+offset_top = 465.00003
+offset_right = 709.0
+offset_bottom = 505.00003
 scale = Vector2(1.5, 1.5)
 theme_override_constants/separation = 10
 
@@ -97,61 +97,42 @@ text = "🧀Сир"
 
 [node name="CustomerArea" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 156.0
-offset_bottom = 54.0
+offset_left = 93.0
+offset_top = 181.0
+offset_right = 575.0
+offset_bottom = 281.0
 scale = Vector2(2, 2)
-
-[node name="OrderLabel" type="Label" parent="CustomerArea"]
-layout_mode = 2
-text = "Чекаю замовлення"
-
-[node name="PatienceBar" type="ProgressBar" parent="CustomerArea"]
-layout_mode = 2
-
-[node name="CustomerFace" type="Label" parent="CustomerArea"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-
-[node name="Btn_Serve" type="Button" parent="."]
-layout_mode = 0
-offset_left = 482.0
-offset_top = 503.0
-offset_right = 572.0
-offset_bottom = 533.0
-scale = Vector2(2, 2)
-theme_override_styles/normal = SubResource("StyleBoxFlat_wqyo1")
-text = "🍽️ Віддати"
 
 [node name="Btn_Restart" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 450.0
-offset_top = 250.0
-offset_right = 615.0
-offset_bottom = 281.0
+offset_left = 413.0
+offset_top = 556.0
+offset_right = 578.0
+offset_bottom = 587.0
 scale = Vector2(2, 2)
 text = "Спробувати ще раз"
 
 [node name="HighscoreLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 898.0
-offset_top = 580.0
-offset_right = 1017.5
-offset_bottom = 603.0
+offset_left = 881.0
+offset_top = 22.0
+offset_right = 1000.5
+offset_bottom = 45.0
 scale = Vector2(2, 2)
 text = "Рекорд: 0"
 
 [node name="ComboLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 400.0
-offset_top = 100.0
-offset_right = 448.0
-offset_bottom = 123.0
+offset_left = 270.0
+offset_top = 35.0
+offset_right = 318.0
+offset_bottom = 58.0
 scale = Vector2(2, 2)
 theme_override_colors/font_color = Color(1, 0.78431374, 0.23137255, 1)
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(555, 304)
+position = Vector2(611, 449)
 amount = 100
 emission_shape = 3
 emission_rect_extents = Vector2(550, 300)
@@ -164,19 +145,19 @@ scale_amount_max = 4.0
 
 [node name="Btn_Trash" type="Button" parent="."]
 layout_mode = 0
-offset_left = 749.0
-offset_top = 509.0
-offset_right = 839.0
-offset_bottom = 540.0
+offset_left = 885.0
+offset_top = 565.0
+offset_right = 975.0
+offset_bottom = 596.0
 scale = Vector2(1.5, 1.5)
 theme_override_styles/normal = SubResource("StyleBoxFlat_v7qp1")
 text = "🗑️"
 
 [node name="CoinsLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 553.0
-offset_right = 115.0
+offset_left = 81.0
+offset_top = 569.0
+offset_right = 176.0
 offset_bottom = 593.0
 scale = Vector2(2, 2)
 theme_override_colors/font_color = Color(0.99607843, 0.95686275, 0.12941177, 1)
@@ -197,28 +178,29 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = -7.0
-offset_right = 1101.0
-offset_bottom = 609.0
+offset_left = 14.0
+offset_top = -2.0
+offset_right = 1112.0
+offset_bottom = 614.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5882353)
 
 [node name="VMenu" type="VBoxContainer" parent="PauseMenu/Control"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 440.5
-offset_top = 110.0
-offset_right = 569.5
-offset_bottom = 281.0
+anchors_preset = -1
+anchor_left = -20.760998
+anchor_top = 0.125
+anchor_right = -20.725
+anchor_bottom = 0.14800033
+offset_left = 1328.44
+offset_top = 140.0
+offset_right = 1456.0
+offset_bottom = 311.41333
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
+metadata/_edit_use_anchors_ = true
 
 [node name="Btn_Resume" type="Button" parent="PauseMenu/Control/VMenu"]
 layout_mode = 2
@@ -242,14 +224,26 @@ layout_mode = 2
 text = "Вийти з гри"
 
 [node name="Settings_Panel" type="Panel" parent="PauseMenu/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.25
+anchor_right = 0.125
+anchor_bottom = 0.25
+offset_left = 523.0
+offset_top = 160.0
+offset_right = 649.0
+offset_bottom = 331.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Control/Settings_Panel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.11100001
+anchor_bottom = 0.324
+offset_left = 30.0
+offset_top = 24.0
+offset_right = 84.014
+offset_bottom = 74.596
 
 [node name="Volume" type="Label" parent="PauseMenu/Control/Settings_Panel/VBoxContainer"]
 layout_mode = 2
@@ -257,23 +251,168 @@ text = "Гучність"
 
 [node name="Volume_Slider" type="HSlider" parent="PauseMenu/Control/Settings_Panel/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 
 [node name="Fullscreen_Checkbox" type="CheckBox" parent="PauseMenu/Control/Settings_Panel/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 
 [node name="Btn_Back" type="Button" parent="PauseMenu/Control/Settings_Panel/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 text = "Назад"
 
 [node name="Btn_Finish_Game" type="Button" parent="."]
 layout_mode = 0
-offset_left = 907.0
-offset_top = 24.0
-offset_right = 1142.0
-offset_bottom = 101.0
+offset_left = 1032.0
+offset_top = 396.0
+offset_right = 1304.0
+offset_bottom = 450.0
 text = "Завершити гру зі збереженням зароблених грошей"
 autowrap_mode = 3
 autowrap_trim_flags = 192
+
+[node name="CustomersContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 149.0
+offset_right = 1110.0
+offset_bottom = 318.0
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+
+[node name="Slot1" type="Panel" parent="CustomersContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 15
+
+[node name="Face" type="Label" parent="CustomersContainer/Slot1"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 30.0
+offset_right = 213.0
+offset_bottom = 127.5
+
+[node name="OrderLabel" type="Label" parent="CustomersContainer/Slot1"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 178.0
+offset_right = 192.0
+offset_bottom = 258.0
+theme_override_colors/font_color = Color(1, 0.13725491, 0.039215688, 1)
+
+[node name="PatienceBar" type="ProgressBar" parent="CustomersContainer/Slot1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.63003093
+anchor_top = -0.55266273
+anchor_right = 0.63003093
+anchor_bottom = -0.55266273
+offset_left = -88.5
+offset_top = 50.4
+offset_right = -0.008300781
+offset_bottom = 77.4
+metadata/_edit_use_anchors_ = true
+
+[node name="Btn_Give" type="Button" parent="CustomersContainer/Slot1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="Slot2" type="Panel" parent="CustomersContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 15
+
+[node name="Face" type="Label" parent="CustomersContainer/Slot2"]
+layout_mode = 0
+offset_left = 93.0
+offset_top = 7.0
+offset_right = 237.09961
+offset_bottom = 149.9621
+
+[node name="OrderLabel" type="Label" parent="CustomersContainer/Slot2"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 184.0
+offset_right = 194.0
+offset_bottom = 264.0
+
+[node name="PatienceBar" type="ProgressBar" parent="CustomersContainer/Slot2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.1496599
+anchor_top = -0.655
+anchor_right = -2.1496599
+anchor_bottom = -0.655
+offset_left = 808.4898
+offset_top = 66.69499
+offset_right = 896.9815
+offset_bottom = 93.69499
+
+[node name="Btn_Give" type="Button" parent="CustomersContainer/Slot2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="Slot3" type="Panel" parent="CustomersContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Face" type="Label" parent="CustomersContainer/Slot3"]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 7.0
+offset_right = 239.87958
+offset_bottom = 156.0
+
+[node name="OrderLabel" type="Label" parent="CustomersContainer/Slot3"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 177.0
+offset_right = 200.0
+offset_bottom = 257.0
+
+[node name="PatienceBar" type="ProgressBar" parent="CustomersContainer/Slot3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.71950746
+anchor_top = -0.42307693
+anchor_right = -0.71950746
+anchor_bottom = -0.42307693
+offset_left = 350.12042
+offset_top = 33.5
+offset_right = 438.61212
+offset_bottom = 60.5
+metadata/_edit_use_anchors_ = true
+
+[node name="Btn_Give" type="Button" parent="CustomersContainer/Slot3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
 
 [connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Resume" to="PauseMenu/Control" method="_on_btn_resume_pressed"]
 [connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Shop" to="PauseMenu/Control" method="_on_btn_shop_pressed"]

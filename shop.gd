@@ -53,14 +53,12 @@ func _on_buy_time_pressed():
 		print("Не вистачає грошей!")
 
 func _input(event):
-	# Якщо натиснули ESC
 	if event.is_action_pressed("ui_cancel"):
-		# Викликаємо ту саму функцію, що і кнопка "Назад"
-		_on_back_pressed()
-		
-		# ВАЖЛИВО: Кажемо Godot, що ми "з'їли" це натискання.
-		# Щоб воно не пішло далі до Меню Паузи.
+		# 1. СПОЧАТКУ кажемо грі, що ми обробили натискання
 		get_viewport().set_input_as_handled()
+		
+		# 2. А ТІЛЬКИ ПОТІМ виходимо
+		_on_back_pressed()
 		
 		
 # Функція повного скидання
