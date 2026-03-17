@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bayaw128ioc4g"]
+[gd_scene format=3 uid="uid://bayaw128ioc4g"]
 
 [ext_resource type="Script" uid="uid://vroksnxuydwo" path="res://shop.gd" id="1_e7rdd"]
-[ext_resource type="Texture2D" uid="uid://budkhy4b0fwer" path="res://icon.svg" id="2_blqjs"]
+[ext_resource type="Texture2D" uid="uid://dv6try6whqqow" path="res://free-icon-time-1584784.png" id="2_e7rdd"]
 
-[node name="Shop" type="Control"]
+[node name="Shop" type="Control" unique_id=245518916]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e7rdd")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=419788637]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +21,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Btn_Back" type="Button" parent="."]
+[node name="Btn_Back" type="Button" parent="." unique_id=1242972358]
 layout_mode = 0
 offset_left = 71.0
 offset_top = 558.0
@@ -30,7 +30,7 @@ offset_bottom = 589.0
 theme_override_font_sizes/font_size = 21
 text = "Назад в меню"
 
-[node name="CoinsLabel" type="Label" parent="."]
+[node name="CoinsLabel" type="Label" parent="." unique_id=1973167174]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 520.0
@@ -41,23 +41,24 @@ theme_override_font_sizes/font_size = 24
 text = "Гроші: 0"
 uppercase = true
 
-[node name="Btn_Buy_Time" type="Button" parent="."]
+[node name="Btn_Buy_Time" type="Button" parent="." unique_id=1869588520]
 layout_mode = 0
-offset_left = 63.0
-offset_top = 275.0
-offset_right = 324.0
-offset_bottom = 306.0
+offset_left = 38.0
+offset_top = 218.0
+offset_right = 306.0
+offset_bottom = 267.0
 text = "Купити покращення (50 монет)"
 
-[node name="Icon_Time" type="TextureRect" parent="."]
+[node name="Icon_Time" type="TextureRect" parent="." unique_id=1092546709]
 layout_mode = 0
-offset_left = 120.0
-offset_top = 122.0
-offset_right = 248.0
-offset_bottom = 250.0
-texture = ExtResource("2_blqjs")
+offset_left = 128.0
+offset_top = 82.0
+offset_right = 224.0
+offset_bottom = 178.0
+texture = ExtResource("2_e7rdd")
+expand_mode = 1
 
-[node name="Btn_Reset" type="Button" parent="."]
+[node name="Btn_Reset" type="Button" parent="." unique_id=1165068504]
 layout_mode = 0
 offset_left = 918.0
 offset_top = 42.0
@@ -65,3 +66,51 @@ offset_right = 1115.0
 offset_bottom = 103.0
 text = "Скинути усі покупки, та гроші"
 autowrap_mode = 2
+
+[node name="Btn_Buy_Meat" type="Button" parent="." unique_id=110628875]
+layout_mode = 0
+offset_left = 394.0
+offset_top = 255.0
+offset_right = 515.0
+offset_bottom = 286.0
+text = "М'ясо"
+
+[node name="Btn_Buy_Pita" type="Button" parent="." unique_id=232519087]
+layout_mode = 0
+offset_left = 397.0
+offset_top = 316.0
+offset_right = 518.0
+offset_bottom = 347.0
+text = "Лаваш"
+
+[node name="Btn_Buy_Sauce" type="Button" parent="." unique_id=1702947124]
+layout_mode = 0
+offset_left = 396.0
+offset_top = 372.0
+offset_right = 517.0
+offset_bottom = 403.0
+text = "Соус"
+
+[node name="Btn_Buy_Cucumber" type="Button" parent="." unique_id=1118349566]
+layout_mode = 0
+offset_left = 401.0
+offset_top = 528.0
+offset_right = 522.0
+offset_bottom = 559.0
+text = "Огірок"
+
+[node name="Btn_Buy_Tomato" type="Button" parent="." unique_id=734116819]
+layout_mode = 0
+offset_left = 401.0
+offset_top = 426.0
+offset_right = 522.0
+offset_bottom = 457.0
+text = "Помідор"
+
+[node name="Btn_Buy_Cheese" type="Button" parent="." unique_id=862117275]
+layout_mode = 0
+offset_left = 401.0
+offset_top = 477.0
+offset_right = 522.0
+offset_bottom = 508.0
+text = "Сир"

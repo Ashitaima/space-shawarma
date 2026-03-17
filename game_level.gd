@@ -29,7 +29,7 @@ var customer_types = [
 ]
 
 # --- НАЛАШТУВАННЯ ---
-var ingredients_list = ["🫓 Лаваш", "🥩 М'ясо", "🌶️ Соус", "🥒 Огірок", "🍅 Помідор", "🧀 Сир"]
+var ingredients_list = ["Лаваш", "М'ясо", "Соус", "Огірок", "Помідор", "Сир"]
 var customer_faces_list = ["👽", "🤖", "🐙", "👨‍🚀", "👾", "👺", "🤠", "🧛"]
 
 # --- ПОСИЛАННЯ (NODES) ---
@@ -39,9 +39,12 @@ var customer_faces_list = ["👽", "🤖", "🐙", "👨‍🚀", "👾", "👺"
 @onready var btn_trash = $Btn_Trash
 @onready var btn_finish_game = $Btn_Finish_Game 
 @onready var btn_restart = $Btn_Restart
+@onready var btn_ingame_shop = $Btn_InGameShop
 
 func _ready():
-	# 1. ІНІЦІАЛІЗАЦІЯ СЛОТІВ
+	GlobalSettings.reset_ingredients()
+	
+	#ініціалізація слотів
 	for i in range(1, 4): 
 		var path = "CustomersContainer/Slot" + str(i)
 		
@@ -56,7 +59,7 @@ func _ready():
 			new_slot.patience_bar = slot_node.get_node("PatienceBar")
 			new_slot.btn_give = slot_node.get_node("Btn_Give")
 			
-			# Увімкнемо автоперенос тексту кодом (щоб не лазити в налаштування)
+			#Автопереніс тексту
 			new_slot.order_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			
 			new_slot.btn_give.pressed.connect(_on_customer_clicked.bind(i-1))
@@ -65,27 +68,30 @@ func _ready():
 			new_slot.root_node.modulate.a = 0.0 
 			new_slot.btn_give.disabled = true   
 			
-			slots.append(new_slot)
-			print("Слот підключено: ", path) # ДІАГНОСТИКА
+			slots.append(new_slot) #Виведення в консоль для перевірки чи все викликається
+			print("Слот підключено: ", path)
 		else:
-			print("🔴 ПОМИЛКА: Не знайдено вузол " + path + ". Перевір назву в сцені!")
+			print("ПОМИЛКА: Не знайдено вузол " + path + ". Перевір назву в сцені!")
 
-	print("✅ Всього знайдено слотів: ", slots.size()) # МАЄ БУТИ 3
+	print("Всього знайдено слотів: ", slots.size()) 
 
 	update_ui()
 	
 	# Підключення кнопок інгредієнтів
-	$IngredientsArea/Btn_Pita.pressed.connect(func(): add_ingredient("🫓 Лаваш"))
-	$IngredientsArea/Btn_Meat.pressed.connect(func(): add_ingredient("🥩 М'ясо"))
-	$IngredientsArea/Btn_Sauce.pressed.connect(func(): add_ingredient("🌶️ Соус"))
-	$IngredientsArea/Btn_Cucumber.pressed.connect(func(): add_ingredient("🥒 Огірок"))
-	$IngredientsArea/Btn_Tomato.pressed.connect(func(): add_ingredient("🍅 Помідор"))
-	$IngredientsArea/Btn_Cheese.pressed.connect(func(): add_ingredient("🧀 Сир"))
+	$IngredientsArea/Btn_Pita.pressed.connect(func(): add_ingredient("Лаваш"))
+	$IngredientsArea/Btn_Meat.pressed.connect(func(): add_ingredient("М'ясо"))
+	$IngredientsArea/Btn_Sauce.pressed.connect(func(): add_ingredient("Соус"))
+	$IngredientsArea/Btn_Cucumber.pressed.connect(func(): add_ingredient("Огірок"))
+	$IngredientsArea/Btn_Tomato.pressed.connect(func(): add_ingredient("Помідор"))
+	$IngredientsArea/Btn_Cheese.pressed.connect(func(): add_ingredient("Сир"))
 	
 	btn_restart.pressed.connect(_on_restart_pressed)
 	btn_trash.pressed.connect(_on_trash_pressed)
 	btn_finish_game.pressed.connect(_on_finish_game_pressed)
 	btn_restart.visible = false
+	
+	btn_ingame_shop.pressed.connect(_on_ingame_shop_pressed)
+	update_ingredients_ui()
 	
 	spawn_customer()
 
@@ -145,18 +151,27 @@ func spawn_customer():
 func generate_order(slot):
 	slot.target_order.clear()
 	var order_size = randi_range(3, 5)
-	slot.target_order.append("🫓 Лаваш")
+	slot.target_order.append("Лаваш")
 	
 	var fillings = ingredients_list.duplicate()
-	fillings.erase("🫓 Лаваш")
+	fillings.erase("Лаваш")
 	
 	for i in range(order_size - 1):
 		slot.target_order.append(fillings.pick_random())
 
 func add_ingredient(item_name: String):
 	if is_game_over: return
+	
+	# Перевіряємо чи є продукт
+	if GlobalSettings.ingredient_counts[item_name] <= 0:
+		show_floating_text("Закінчилось!", Color.RED, $IngredientsArea.global_position)
+		return
+		
+	# Віднімаємо 1 продукт
+	GlobalSettings.ingredient_counts[item_name] -= 1
 	current_stack.append(item_name)
 	update_ui()
+	update_ingredients_ui() # Оновлюємо цифри на кнопках
 
 func _on_customer_clicked(slot_index: int):
 	# print("Натиснуто на слот №", slot_index)
@@ -166,7 +181,22 @@ func _on_customer_clicked(slot_index: int):
 	
 	if not slot.is_active: return
 		
-	if current_stack == slot.target_order:
+	# Робимо копії масивів, щоб не зламати порядок відображення на екрані
+	var stack_copy = current_stack.duplicate()
+	var target_copy = slot.target_order.duplicate()
+	
+	if stack_copy == target_copy:  #Динамічне оновлення грошей
+		var money = calculate_money(slot)
+		score += money
+		GlobalSettings.total_coins += money
+	
+	# Сортуємо обидві копії (порядок не має значення)
+	stack_copy.sort()
+	target_copy.sort()
+	
+	# Порівнюємо відсортовані копії
+	if stack_copy == target_copy:
+	
 		var money = calculate_money(slot)
 		score += money
 		show_floating_text("+" + str(money), Color.GREEN, slot.root_node.global_position)
@@ -177,8 +207,8 @@ func _on_customer_clicked(slot_index: int):
 		current_stack.clear()
 		update_ui()
 	else:
-		show_floating_text("Не те! 😡", Color.RED, slot.root_node.global_position)
-		slot.time_left -= 5.0 
+		show_floating_text("Не те!", Color.RED, slot.root_node.global_position)
+		slot.time_left -= 5.0
 
 func calculate_money(slot) -> int:
 	var money = slot.info["pay"]
@@ -186,17 +216,17 @@ func calculate_money(slot) -> int:
 		money = int(money * 0.7) 
 	return money
 
-# --- ОСЬ ТУТ ВИПРАВЛЕНА ЛОГІКА ---
+
 func customer_leaves(slot, success: bool):
-	# 1. Спочатку звільняємо місце!
+
 	slot.is_active = false
 	
-	# 2. Ховаємо слот
+	# Ховаємо слот
 	slot.root_node.modulate.a = 0.0 
 	slot.btn_give.disabled = true
 	
 	if success:
-		# Якщо успіх - прискорюємо появу наступного!
+		# Якщо успіх - прискорюємо появу наступного
 		# Якщо до наступного ще довго (> 2 сек), то він прийде через 0.5-1.5 сек
 		if spawn_timer > 2.0:
 			spawn_timer = randf_range(0.5, 1.5)
@@ -204,7 +234,7 @@ func customer_leaves(slot, success: bool):
 		# Якщо провал/пішов сам
 		score -= 10
 		if score < 0: score = 0
-		show_floating_text("-10 🤬", Color.RED, slot.root_node.global_position)
+		show_floating_text("-10", Color.RED, slot.root_node.global_position)
 		update_ui()
 
 func _on_trash_pressed():
@@ -220,7 +250,7 @@ func update_ui():
 	else:
 		label_highscore.text = "Рекорд: " + str(GlobalSettings.highscore)
 	
-	label_coins.text = "🪙 " + str(GlobalSettings.total_coins + score)
+	label_coins.text = "🪙 " + str(GlobalSettings.total_coins)
 
 func update_slot_ui(slot):
 	var order_text = "  ".join(slot.target_order)
@@ -251,3 +281,37 @@ func game_over():
 	GlobalSettings.save_game_results(score, score)
 	btn_finish_game.visible = false
 	btn_restart.visible = true
+	
+func update_ingredients_ui():
+	# Оновлюємо текст кнопок, щоб показувати залишок, і вимикаємо їх, якщо 0
+	$IngredientsArea/Btn_Pita.text = "Лаваш (" + str(GlobalSettings.ingredient_counts["Лаваш"]) + ")"
+	$IngredientsArea/Btn_Pita.disabled = GlobalSettings.ingredient_counts["Лаваш"] <= 0
+	
+	$IngredientsArea/Btn_Meat.text = "М'ясо (" + str(GlobalSettings.ingredient_counts["М'ясо"]) + ")"
+	$IngredientsArea/Btn_Meat.disabled = GlobalSettings.ingredient_counts["М'ясо"] <= 0
+	
+	$IngredientsArea/Btn_Sauce.text = "Соус (" + str(GlobalSettings.ingredient_counts["Соус"]) + ")"
+	$IngredientsArea/Btn_Sauce.disabled = GlobalSettings.ingredient_counts["Соус"] <= 0
+	
+	$IngredientsArea/Btn_Cucumber.text = "Огірок (" + str(GlobalSettings.ingredient_counts["Огірок"]) + ")"
+	$IngredientsArea/Btn_Cucumber.disabled = GlobalSettings.ingredient_counts["М'ясо"] <= 0
+	
+	$IngredientsArea/Btn_Tomato.text = "Помідор (" + str(GlobalSettings.ingredient_counts["Лаваш"]) + ")"
+	$IngredientsArea/Btn_Tomato.disabled = GlobalSettings.ingredient_counts["Лаваш"] <= 0
+	
+	$IngredientsArea/Btn_Cheese.text = "Сир (" + str(GlobalSettings.ingredient_counts["М'ясо"]) + ")"
+	$IngredientsArea/Btn_Cheese.disabled = GlobalSettings.ingredient_counts["М'ясо"] <= 0
+
+func _on_ingame_shop_pressed():
+	# Ставимо гру на паузу
+	get_tree().paused = true 
+	
+	var shop_scene = preload("res://shop.tscn")
+	var shop_instance = shop_scene.instantiate()
+	add_child(shop_instance)
+	
+	# Коли магазин закриється (зробить queue_free) пауза знімається
+	shop_instance.tree_exited.connect(func(): 
+		get_tree().paused = false
+		update_ingredients_ui() # Оновлюємо кнопки після покупок
+	)

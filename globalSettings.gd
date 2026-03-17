@@ -6,10 +6,19 @@ const SAVE_PATH = "user://global_save.cfg" # Єдиний файл для всь
 var current_volume_db_index = 0.5
 var is_fullscreen = false
 
-# --- ДАНІ ГРАВЦЯ (З твого коду гри) ---
+# --- ДАНІ ГРАВЦЯ---
 var highscore: int = 0
 var total_coins: int = 0  # Гроші
 var bought_items: Array = [] # Товари з магазину
+
+# Кільксть продуктів на початку гри
+var ingredient_counts: Dictionary = {
+	"Лаваш": 10, "М'ясо": 5, "Соус": 5, "Огірок": 5, "Помідор": 5, "Сир": 5
+}
+# Ціни на продукти в магазині
+var ingredient_prices: Dictionary = {
+	"Лаваш": 2, "М'ясо": 5, "Соус": 3, "Огірок": 3, "Помідор": 3, "Сир": 4
+}
 
 var master_bus_index = AudioServer.get_bus_index("Master")
 
@@ -18,7 +27,7 @@ func _ready():
 
 # --- ФУНКЦІЇ ДЛЯ ГРИ ---
 
-# Викликай це, коли гра закінчилась
+
 func save_game_results(new_score: int, earned_coins: int):
 	# Оновлюємо гроші
 	total_coins += earned_coins
@@ -45,7 +54,11 @@ func update_fullscreen(toggled_on):
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	save_data()
 
-# --- ЗБЕРЕЖЕННЯ ТА ЗАВАНТАЖЕННЯ ---
+# Скидання кількості інгредієнтів при перезапуску рівня
+func reset_ingredients():
+	ingredient_counts = {
+		"Лаваш": 10, "М'ясо": 5, "Соус": 5, "Огірок": 5, "Помідор": 5, "Сир": 5
+	}
 
 func save_data():
 	var config = ConfigFile.new()

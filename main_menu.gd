@@ -5,7 +5,6 @@ func _on_btn_Start_pressed():
 	get_tree().change_scene_to_file("res://game_level.tscn")
 
 func _on_btn_Shop_pressed():
-	print("Кнопку магазину натиснуто!")
 	get_tree().change_scene_to_file("res://shop.tscn")
 
 func _on_btn_Settings_pressed():
@@ -25,16 +24,15 @@ func _ready():
 	$Settings_Panel/VBoxContainer/Fullscreen_Checkbox.button_pressed = GlobalSettings.is_fullscreen
 
 
-# --- Кнопка "Назад" в налаштуваннях ---
+# Кнопка "Назад" в налаштуваннях
 func _on_btn_back_pressed():
 	$Settings_Panel.visible = false
 
-# --- Логіка ГУЧНОСТІ ---
+# Гучність
 func _on_volume_slider_value_changed(value):
 	# Передаємо зміну в глобальний скрипт
 	GlobalSettings.update_volume(value)
 
-# --- Логіка ПОВНИЙ ЕКРАН ---
-# Коли клацаємо чекбокс
+# Повний екран
 func _on_fullscreen_check_toggled(toggled_on):
 	GlobalSettings.update_fullscreen(toggled_on)
