@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://weihnulnl81x" path="res://game_level.gd" id="1_bwyfi"]
 [ext_resource type="Script" uid="uid://dpujfrevxhx3v" path="res://pause_menu.gd" id="2_df5pp"]
-[ext_resource type="Texture2D" uid="uid://bk8jjdnfv5o7q" path="res://free-icon-shopping-cart-of-checkered-design-34627.png" id="3_ibsu8"]
+[ext_resource type="Texture2D" uid="uid://dr4fnu2kllt0w" path="res://icons/free-icon-shopping-cart-of-checkered-design-34627.png" id="3_ibsu8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwyfi"]
 bg_color = Color(0.36926877, 0.22772616, 0.022060297, 1)

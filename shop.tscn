@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bayaw128ioc4g"]
 
 [ext_resource type="Script" uid="uid://vroksnxuydwo" path="res://shop.gd" id="1_e7rdd"]
-[ext_resource type="Texture2D" uid="uid://dv6try6whqqow" path="res://free-icon-time-1584784.png" id="2_e7rdd"]
+[ext_resource type="Texture2D" uid="uid://cqxphcqt0106i" path="res://icons/free-icon-time-1584784.png" id="2_e7rdd"]
 
 [node name="Shop" type="Control" unique_id=245518916]
 process_mode = 3
