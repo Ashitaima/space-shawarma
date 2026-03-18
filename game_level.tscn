@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://weihnulnl81x" path="res://game_level.gd" id="1_bwyfi"]
 [ext_resource type="Script" uid="uid://dpujfrevxhx3v" path="res://pause_menu.gd" id="2_df5pp"]
-[ext_resource type="Texture2D" uid="uid://dr4fnu2kllt0w" path="res://icons/free-icon-shopping-cart-of-checkered-design-34627.png" id="3_ibsu8"]
+[ext_resource type="Texture2D" uid="uid://cqd1hi7abubh7" path="res://icons/trash_btn_icon.png" id="3_ibsu8"]
+[ext_resource type="Texture2D" uid="uid://dr4fnu2kllt0w" path="res://icons/free-icon-shopping-cart-of-checkered-design-34627.png" id="4_qsd0w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwyfi"]
 bg_color = Color(0.36926877, 0.22772616, 0.022060297, 1)
@@ -30,10 +31,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = -4.0
-offset_right = 7.0
-offset_bottom = -3.0
+offset_top = -2.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bwyfi")
@@ -146,13 +145,17 @@ scale_amount_max = 4.0
 
 [node name="Btn_Trash" type="Button" parent="." unique_id=934581536]
 layout_mode = 0
-offset_left = 817.0
-offset_top = 573.0
-offset_right = 907.0
-offset_bottom = 604.0
+offset_left = 884.0
+offset_top = 555.0
+offset_right = 931.3333
+offset_bottom = 603.48773
 scale = Vector2(1.5, 1.5)
 theme_override_styles/normal = SubResource("StyleBoxFlat_v7qp1")
-text = "🗑️"
+keep_pressed_outside = true
+icon = ExtResource("3_ibsu8")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="CoinsLabel" type="Label" parent="." unique_id=1944621345]
 layout_mode = 0
@@ -429,11 +432,13 @@ flat = true
 
 [node name="Btn_InGameShop" type="Button" parent="." unique_id=1448022314]
 layout_mode = 0
-offset_left = 1028.0
-offset_top = 482.0
-offset_right = 1117.931
-offset_bottom = 562.0
-icon = ExtResource("3_ibsu8")
+offset_left = 1042.0
+offset_top = 471.0
+offset_right = 1123.0
+offset_bottom = 553.0
+icon = ExtResource("4_qsd0w")
+alignment = 0
+icon_alignment = 1
 expand_icon = true
 
 [connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Resume" to="PauseMenu/Control" method="_on_btn_resume_pressed"]

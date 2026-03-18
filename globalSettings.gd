@@ -2,11 +2,11 @@ extends Node
 
 const SAVE_PATH = "user://global_save.cfg" # Єдиний файл для всього
 
-# --- НАЛАШТУВАННЯ ---
+# Налаштування
 var current_volume_db_index = 0.5
 var is_fullscreen = false
 
-# --- ДАНІ ГРАВЦЯ---
+# Дані гравця
 var highscore: int = 0
 var total_coins: int = 0  # Гроші
 var bought_items: Array = [] # Товари з магазину
@@ -25,8 +25,7 @@ var master_bus_index = AudioServer.get_bus_index("Master")
 func _ready():
 	load_data()
 
-# --- ФУНКЦІЇ ДЛЯ ГРИ ---
-
+# Функції для гри
 
 func save_game_results(new_score: int, earned_coins: int):
 	# Оновлюємо гроші
@@ -39,7 +38,7 @@ func save_game_results(new_score: int, earned_coins: int):
 	# Зберігаємо все на диск
 	save_data()
 
-# --- ФУНКЦІЇ НАЛАШТУВАНЬ ---
+# Функції налаштувань
 
 func update_volume(value):
 	current_volume_db_index = value

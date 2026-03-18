@@ -1,33 +1,69 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmo3jiqfe3oia"]
+[gd_scene format=3 uid="uid://bmo3jiqfe3oia"]
 
 [ext_resource type="Script" uid="uid://dahee8ix1vj8r" path="res://main_menu.gd" id="1_06t4h"]
 [ext_resource type="Script" uid="uid://cwhsb1lojmr63" path="res://titel.gd" id="2_7vrkn"]
+[ext_resource type="FontFile" uid="uid://iysi7ud3g7u8" path="res://fonts/pirkkala.ttf" id="2_glbon"]
+[ext_resource type="Script" uid="uid://dqa5rn2dnrpvh" path="res://parallax_background.gd" id="3_jix8l"]
+[ext_resource type="Texture2D" uid="uid://b82onlsny8iua" path="res://pikselnyi-kosmos-2.png" id="4_glbon"]
+[ext_resource type="Texture2D" uid="uid://bcluj2j44cvco" path="res://icons/btn_common.png" id="4_nlkkf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rhts7"]
 font_size = 64
 
-[node name="MainMenu" type="Control"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qe12f"]
+texture = ExtResource("4_nlkkf")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8qtwp"]
+texture = ExtResource("4_nlkkf")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dy7ct"]
+texture = ExtResource("4_nlkkf")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0o4t1"]
+texture = ExtResource("4_nlkkf")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[node name="MainMenu" type="Control" unique_id=1417766535]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_right = 4.0
+offset_left = 3.0
+offset_top = -1.0
+offset_right = 3.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_06t4h")
 
-[node name="Titel" type="Label" parent="."]
+[node name="Titel" type="Label" parent="." unique_id=98625224]
 layout_mode = 0
-offset_left = 230.0
-offset_top = 130.0
-offset_right = 876.0
-offset_bottom = 218.0
-text = "Shawarma Simulator"
+offset_left = 363.0
+offset_top = 90.0
+offset_right = 765.0
+offset_bottom = 257.0
+theme_override_fonts/font = ExtResource("2_glbon")
+text = "SPACE 
+     SHAWARMA"
 label_settings = SubResource("LabelSettings_rhts7")
 script = ExtResource("2_7vrkn")
 
-[node name="Settings_Panel" type="Panel" parent="."]
+[node name="Settings_Panel" type="Panel" parent="." unique_id=1191339659]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -36,57 +72,80 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings_Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings_Panel" unique_id=84019388]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Volume" type="Label" parent="Settings_Panel/VBoxContainer"]
+[node name="Volume" type="Label" parent="Settings_Panel/VBoxContainer" unique_id=987202816]
 layout_mode = 2
-text = "Гучність"
 
-[node name="Volume_Slider" type="HSlider" parent="Settings_Panel/VBoxContainer"]
+[node name="Volume_Slider" type="HSlider" parent="Settings_Panel/VBoxContainer" unique_id=294827402]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 0.5
 
-[node name="Fullscreen_Checkbox" type="CheckBox" parent="Settings_Panel/VBoxContainer"]
+[node name="Fullscreen_Checkbox" type="CheckBox" parent="Settings_Panel/VBoxContainer" unique_id=2138176002]
 layout_mode = 2
 button_pressed = true
 text = "На весь екран
 "
 
-[node name="Btn_Back" type="Button" parent="Settings_Panel/VBoxContainer"]
+[node name="Btn_Back" type="Button" parent="Settings_Panel/VBoxContainer" unique_id=427486265]
 layout_mode = 2
 text = "Назад"
 
-[node name="MainMenu" type="VBoxContainer" parent="."]
+[node name="MainMenu" type="VBoxContainer" parent="." unique_id=661320977]
 layout_mode = 0
-offset_left = 403.0
-offset_top = 258.0
-offset_right = 553.0
-offset_bottom = 394.0
+offset_left = 400.0
+offset_top = 257.0
+offset_right = 551.5
+offset_bottom = 409.5
 scale = Vector2(2, 2)
+metadata/_edit_use_anchors_ = true
 
-[node name="Btn_Start" type="Button" parent="MainMenu"]
+[node name="Btn_Start" type="Button" parent="MainMenu" unique_id=1273479383]
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-text = "Почати
-"
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_qe12f")
+text = "Почати"
+icon_alignment = 1
+expand_icon = true
 
-[node name="Btn_Shop" type="Button" parent="MainMenu"]
+[node name="Btn_Shop" type="Button" parent="MainMenu" unique_id=1614349299]
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_8qtwp")
 text = "Магазин
 "
+icon_alignment = 1
 
-[node name="Btn_Settings" type="Button" parent="MainMenu"]
+[node name="Btn_Settings" type="Button" parent="MainMenu" unique_id=1344763936]
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_dy7ct")
 text = "Налаштування
 "
 
-[node name="Btn_Exit" type="Button" parent="MainMenu"]
+[node name="Btn_Exit" type="Button" parent="MainMenu" unique_id=505103400]
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_0o4t1")
 text = "Вийти"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1937881506]
+script = ExtResource("3_jix8l")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1854103207]
+motion_mirroring = Vector2(1680, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1701647881]
+position = Vector2(573, 316)
+scale = Vector2(0.877703, 0.7422916)
+texture = ExtResource("4_glbon")
 
 [connection signal="value_changed" from="Settings_Panel/VBoxContainer/Volume_Slider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="toggled" from="Settings_Panel/VBoxContainer/Fullscreen_Checkbox" to="." method="_on_fullscreen_check_toggled"]

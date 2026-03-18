@@ -1,8 +1,6 @@
 extends Control
 
-
 var price_time_upgrade = 50
-
 
 @onready var label_coins = $CoinsLabel
 @onready var btn_buy_time = $Btn_Buy_Time

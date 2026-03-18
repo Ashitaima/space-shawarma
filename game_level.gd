@@ -294,13 +294,13 @@ func update_ingredients_ui():
 	$IngredientsArea/Btn_Sauce.disabled = GlobalSettings.ingredient_counts["Соус"] <= 0
 	
 	$IngredientsArea/Btn_Cucumber.text = "Огірок (" + str(GlobalSettings.ingredient_counts["Огірок"]) + ")"
-	$IngredientsArea/Btn_Cucumber.disabled = GlobalSettings.ingredient_counts["М'ясо"] <= 0
+	$IngredientsArea/Btn_Cucumber.disabled = GlobalSettings.ingredient_counts["Огірок"] <= 0
 	
-	$IngredientsArea/Btn_Tomato.text = "Помідор (" + str(GlobalSettings.ingredient_counts["Лаваш"]) + ")"
-	$IngredientsArea/Btn_Tomato.disabled = GlobalSettings.ingredient_counts["Лаваш"] <= 0
+	$IngredientsArea/Btn_Tomato.text = "Помідор (" + str(GlobalSettings.ingredient_counts["Помідор"]) + ")"
+	$IngredientsArea/Btn_Tomato.disabled = GlobalSettings.ingredient_counts["Помідор"] <= 0
 	
-	$IngredientsArea/Btn_Cheese.text = "Сир (" + str(GlobalSettings.ingredient_counts["М'ясо"]) + ")"
-	$IngredientsArea/Btn_Cheese.disabled = GlobalSettings.ingredient_counts["М'ясо"] <= 0
+	$IngredientsArea/Btn_Cheese.text = "Сир (" + str(GlobalSettings.ingredient_counts["Сир"]) + ")"
+	$IngredientsArea/Btn_Cheese.disabled = GlobalSettings.ingredient_counts["Сир"] <= 0
 
 func _on_ingame_shop_pressed():
 	# Ставимо гру на паузу
