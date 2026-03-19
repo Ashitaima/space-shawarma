@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b82onlsny8iua"
-path="res://.godot/imported/pikselnyi-kosmos-2.png-982422c6d465c3cf9c9db5981881558b.ctex"
+uid="uid://cs0lunb33n2d0"
+path="res://.godot/imported/moon.png-c184d5cf7eff14cfa845e028475bee71.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pikselnyi-kosmos-2.png"
-dest_files=["res://.godot/imported/pikselnyi-kosmos-2.png-982422c6d465c3cf9c9db5981881558b.ctex"]
+source_file="res://main_menu_planets/moon.png"
+dest_files=["res://.godot/imported/moon.png-c184d5cf7eff14cfa845e028475bee71.ctex"]
 
 [params]
 

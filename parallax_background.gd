@@ -1,3 +1,4 @@
+#Скрипт для прокрутки фону в головному меню
 extends ParallaxBackground
 
 var scroll_speed = 50 # Швидкість руху 
