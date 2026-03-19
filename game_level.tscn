@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://coml4i5p12i3s"]
 
 [ext_resource type="Script" uid="uid://weihnulnl81x" path="res://game_level.gd" id="1_bwyfi"]
+[ext_resource type="Theme" uid="uid://bl3a4wglmsj7g" path="res://fonts/global_font_theme.tres" id="1_g7mx2"]
 [ext_resource type="Script" uid="uid://dpujfrevxhx3v" path="res://pause_menu.gd" id="2_df5pp"]
 [ext_resource type="Texture2D" uid="uid://cqd1hi7abubh7" path="res://icons/trash_btn_icon.png" id="3_ibsu8"]
 [ext_resource type="Texture2D" uid="uid://dr4fnu2kllt0w" path="res://icons/free-icon-shopping-cart-of-checkered-design-34627.png" id="4_qsd0w"]
@@ -35,6 +36,7 @@ offset_top = -2.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_g7mx2")
 script = ExtResource("1_bwyfi")
 
 [node name="TableArea" type="VBoxContainer" parent="." unique_id=1962659913]
@@ -61,30 +63,35 @@ theme_override_constants/separation = 10
 [node name="Btn_Pita" type="Button" parent="IngredientsArea" unique_id=308771634]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme = ExtResource("1_g7mx2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bwyfi")
 text = "🫓 Лаваш"
 
 [node name="Btn_Meat" type="Button" parent="IngredientsArea" unique_id=278764677]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme = ExtResource("1_g7mx2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_df5pp")
 text = "🥩М'ясо"
 
 [node name="Btn_Sauce" type="Button" parent="IngredientsArea" unique_id=62971474]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme = ExtResource("1_g7mx2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ibsu8")
 text = "🌶️ Соус"
 
 [node name="Btn_Cucumber" type="Button" parent="IngredientsArea" unique_id=1771916586]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme = ExtResource("1_g7mx2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_qsd0w")
 text = "🥒 Огірок"
 
 [node name="Btn_Tomato" type="Button" parent="IngredientsArea" unique_id=1584827076]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme = ExtResource("1_g7mx2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_g7mx2")
 text = "🍅 Помідор
 "
@@ -92,6 +99,7 @@ text = "🍅 Помідор
 [node name="Btn_Cheese" type="Button" parent="IngredientsArea" unique_id=532674633]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme = ExtResource("1_g7mx2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_efyo6")
 text = "🧀Сир"
 
@@ -111,6 +119,7 @@ offset_top = 556.0
 offset_right = 578.0
 offset_bottom = 587.0
 scale = Vector2(2, 2)
+theme = ExtResource("1_g7mx2")
 text = "Спробувати ще раз"
 
 [node name="HighscoreLabel" type="Label" parent="." unique_id=209860884]
@@ -120,6 +129,7 @@ offset_top = 22.0
 offset_right = 1000.5
 offset_bottom = 45.0
 scale = Vector2(2, 2)
+theme = ExtResource("1_g7mx2")
 text = "Рекорд: 0"
 
 [node name="ComboLabel" type="Label" parent="." unique_id=2054690489]
@@ -129,6 +139,7 @@ offset_top = 55.0
 offset_right = 448.5
 offset_bottom = 78.0
 scale = Vector2(2, 2)
+theme = ExtResource("1_g7mx2")
 theme_override_colors/font_color = Color(1, 0.78431374, 0.23137255, 1)
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1948178132]
@@ -164,6 +175,7 @@ offset_top = 569.0
 offset_right = 176.0
 offset_bottom = 593.0
 scale = Vector2(2, 2)
+theme = ExtResource("1_g7mx2")
 theme_override_colors/font_color = Color(0.99607843, 0.95686275, 0.12941177, 1)
 text = "🪙 0"
 
@@ -182,9 +194,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 18.0
-offset_top = -7.0
-offset_right = 1116.0
+offset_left = -1.0
+offset_top = -19.0
+offset_right = 1113.0
 offset_bottom = 609.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -204,6 +216,7 @@ offset_bottom = 311.41333
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
+theme = ExtResource("1_g7mx2")
 metadata/_edit_use_anchors_ = true
 
 [node name="Btn_Resume" type="Button" parent="PauseMenu/Control/VMenu" unique_id=1450877353]
@@ -251,6 +264,7 @@ offset_bottom = 74.596
 
 [node name="Volume" type="Label" parent="PauseMenu/Control/Settings_Panel/VBoxContainer" unique_id=892399135]
 layout_mode = 2
+theme = ExtResource("1_g7mx2")
 text = "Гучність"
 
 [node name="Volume_Slider" type="HSlider" parent="PauseMenu/Control/Settings_Panel/VBoxContainer" unique_id=877624753]
@@ -264,6 +278,7 @@ size_flags_vertical = 4
 [node name="Btn_Back" type="Button" parent="PauseMenu/Control/Settings_Panel/VBoxContainer" unique_id=800701871]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_g7mx2")
 text = "Назад"
 
 [node name="Btn_Finish_Game" type="Button" parent="." unique_id=283627485]
@@ -272,6 +287,7 @@ offset_left = 525.0
 offset_top = 578.0
 offset_right = 668.0
 offset_bottom = 632.0
+theme = ExtResource("1_g7mx2")
 text = "Завершити гру
 "
 autowrap_mode = 3
@@ -307,6 +323,7 @@ anchor_right = 0.99071205
 anchor_bottom = 1.1065089
 offset_bottom = 23.0
 grow_horizontal = 2
+theme = ExtResource("1_g7mx2")
 autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
@@ -321,6 +338,7 @@ offset_left = -88.5
 offset_top = 50.4
 offset_right = -0.008300781
 offset_bottom = 77.4
+theme = ExtResource("1_g7mx2")
 metadata/_edit_use_anchors_ = true
 
 [node name="Btn_Give" type="Button" parent="CustomersContainer/Slot1" unique_id=939880197]
@@ -357,6 +375,7 @@ anchor_right = 1.0030864
 anchor_bottom = 1.0887574
 offset_bottom = 23.0
 grow_horizontal = 2
+theme = ExtResource("1_g7mx2")
 autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
@@ -371,6 +390,7 @@ offset_left = 808.4898
 offset_top = 66.69499
 offset_right = 896.9815
 offset_bottom = 93.69499
+theme = ExtResource("1_g7mx2")
 
 [node name="Btn_Give" type="Button" parent="CustomersContainer/Slot2" unique_id=678020779]
 layout_mode = 1
@@ -404,6 +424,7 @@ offset_top = 179.0
 offset_right = -3.0
 offset_bottom = 202.0
 grow_horizontal = 2
+theme = ExtResource("1_g7mx2")
 autowrap_mode = 3
 
 [node name="PatienceBar" type="ProgressBar" parent="CustomersContainer/Slot3" unique_id=1206170994]
@@ -417,6 +438,7 @@ offset_left = 350.12042
 offset_top = 33.5
 offset_right = 438.61212
 offset_bottom = 60.5
+theme = ExtResource("1_g7mx2")
 metadata/_edit_use_anchors_ = true
 
 [node name="Btn_Give" type="Button" parent="CustomersContainer/Slot3" unique_id=1263787625]

@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://bl3a4wglmsj7g"]
+
+[ext_resource type="FontFile" uid="uid://b0djwp3u4a20a" path="res://fonts/Pixel_Font-7.ttf" id="1_tbcpq"]
+
+[resource]
+default_font = ExtResource("1_tbcpq")
+default_font_size = 16

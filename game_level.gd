@@ -1,6 +1,6 @@
 extends Control
 
-# --- СТРУКТУРА КЛІЄНТА ---
+# Структура клієнта
 class CustomerSlot:
 	var root_node: Node
 	var face: Label # Поки що Label (смайлики)
@@ -14,25 +14,25 @@ class CustomerSlot:
 	var time_left: float = 0.0
 	var max_time: float = 0.0
 
-# --- ДАНІ ГРИ ---
+# дані гри
 var current_stack: Array = [] 
 var slots: Array[CustomerSlot] = [] 
 var score: int = 0
 var is_game_over: bool = false
 var spawn_timer: float = 0.0 
 
-# --- БАЛАНС ---
+
 var customer_types = [
-	{ "name": "Бабуся", "patience": 45.0, "pay": 50 },  
-	{ "name": "Студент", "patience": 30.0, "pay": 80 }, 
-	{ "name": "Бізнесмен", "patience": 20.0, "pay": 150 } 
+	{ "name": "Бабуся", "patience": 40.0, "pay": 25 },  
+	{ "name": "Студент", "patience": 30.0, "pay": 45 }, 
+	{ "name": "Бізнесмен", "patience": 20.0, "pay": 100 } 
 ]
 
-# --- НАЛАШТУВАННЯ ---
+
 var ingredients_list = ["Лаваш", "М'ясо", "Соус", "Огірок", "Помідор", "Сир"]
 var customer_faces_list = ["👽", "🤖", "🐙", "👨‍🚀", "👾", "👺", "🤠", "🧛"]
 
-# --- ПОСИЛАННЯ (NODES) ---
+
 @onready var label_dish = $TableArea/CurrentDishLabel
 @onready var label_highscore = $HighscoreLabel
 @onready var label_coins = $CoinsLabel 
