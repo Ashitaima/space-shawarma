@@ -52,16 +52,14 @@ func _on_titel_gui_input(event):
 		# Знову дозволяємо плавати
 		tween.tween_callback(func(): is_bouncing = false)
 
-# ==========================================
-# === ТВОЇ ІСНУЮЧІ ФУНКЦІЇ ДЛЯ КНОПОК ======
-# ==========================================
+
 
 func _on_btn_Start_pressed():
 	# Завантажує сцену з грою
-	get_tree().change_scene_to_file("res://game_level.tscn")
+	get_tree().change_scene_to_file("res://Scenes/game_level.tscn")
 
 func _on_btn_Shop_pressed():
-	get_tree().change_scene_to_file("res://shop.tscn")
+	get_tree().change_scene_to_file("res://Scenes/shop.tscn")
 
 func _on_btn_Settings_pressed():
 	$Settings_Panel.visible = true

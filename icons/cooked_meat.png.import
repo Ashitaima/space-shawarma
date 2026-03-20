@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3s0bhg6xqb6o"
-path="res://.godot/imported/ice_planet.png-be3bbdd1d3118e861f7909b96d524697.ctex"
+uid="uid://chr2l0cwihwh2"
+path="res://.godot/imported/cooked_meat.png-bcac5822d81352cbcf1a0e588b6abb97.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://main_menu_planets/ice_planet.png"
-dest_files=["res://.godot/imported/ice_planet.png-be3bbdd1d3118e861f7909b96d524697.ctex"]
+source_file="res://icons/cooked_meat.png"
+dest_files=["res://.godot/imported/cooked_meat.png-bcac5822d81352cbcf1a0e588b6abb97.ctex"]
 
 [params]
 

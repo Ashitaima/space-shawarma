@@ -2,7 +2,7 @@ extends Control
 
 # УВАГА: Перевір, чи файл називається "Shop.tscn" чи "shop.tscn" у твоїй папці!
 # Я поставив з великої літери, як ми робили раніше.
-var shop_scene_resource = preload("res://shop.tscn")
+var shop_scene_resource = preload("res://Scenes/shop.tscn")
 
 func _ready():
 	visible = false
@@ -48,7 +48,7 @@ func show_settings():
 
 func _on_btn_Main_Menu_pressed():
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://main_menu.tscn") # Перевір назву файлу меню!
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 	
 func _on_btn_resume_pressed():
 	toggle_pause()
@@ -62,11 +62,9 @@ func _on_btn_back_pressed():
 func _on_btn_quit_pressed():
 	get_tree().quit()
 
-# --- ЛОГІКА МАГАЗИНУ ---
+# Логіка магазину
 
 func _on_btn_shop_pressed():
-	print("Кнопка Магазину в паузі натиснута!") # <--- ПЕРЕВІРКА
-	
 	# Створюємо магазин
 	var shop_instance = shop_scene_resource.instantiate()
 	add_child(shop_instance)
@@ -81,7 +79,7 @@ func _on_shop_closed():
 	print("Магазин закрито, повертаємо меню")
 	show_main_buttons()
 
-# --- Налаштування ---
+# Налаштування
 
 func _on_volume_slider_value_changed(value):
 	GlobalSettings.update_volume(value)

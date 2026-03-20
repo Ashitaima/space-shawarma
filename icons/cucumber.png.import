@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6ff505wv37hd"
-path="res://.godot/imported/asteroid_4.png-49cc79a27822926ba41590cab52bbf6a.ctex"
+uid="uid://clm4glqnb3hl0"
+path="res://.godot/imported/cucumber.png-70e5e721f1ded3cbe906718fe061d6b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://main_menu_planets/asteroid_4.png"
-dest_files=["res://.godot/imported/asteroid_4.png-49cc79a27822926ba41590cab52bbf6a.ctex"]
+source_file="res://icons/cucumber.png"
+dest_files=["res://.godot/imported/cucumber.png-70e5e721f1ded3cbe906718fe061d6b1.ctex"]
 
 [params]
 

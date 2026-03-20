@@ -32,35 +32,44 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -2.0
-offset_bottom = -1.0
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_g7mx2")
 script = ExtResource("1_bwyfi")
 
 [node name="TableArea" type="VBoxContainer" parent="." unique_id=1962659913]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 22.0
-offset_right = 52.0
-offset_bottom = 62.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -342.0
+offset_top = -1.5
+offset_right = -2.572876
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(2, 2)
 
-[node name="CurrentDishLabel" type="Label" parent="TableArea" unique_id=2020264684]
+[node name="PlateContainer" type="HBoxContainer" parent="TableArea" unique_id=1588650831]
 layout_mode = 2
-text = "Empty"
+size_flags_vertical = 3
+tooltip_text = "Hello"
 
 [node name="IngredientsArea" type="BoxContainer" parent="." unique_id=2110603029]
 layout_mode = 0
-offset_left = 163.0
-offset_top = 465.00003
-offset_right = 709.0
-offset_bottom = 505.00003
+offset_left = 175.0
+offset_top = 526.0
+offset_right = 721.0
+offset_bottom = 566.0
 scale = Vector2(1.5, 1.5)
 theme_override_constants/separation = 10
 
-[node name="Btn_Pita" type="Button" parent="IngredientsArea" unique_id=308771634]
+[node name="Btn_Lavash" type="Button" parent="IngredientsArea" unique_id=308771634]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme = ExtResource("1_g7mx2")
@@ -143,7 +152,7 @@ theme = ExtResource("1_g7mx2")
 theme_override_colors/font_color = Color(1, 0.78431374, 0.23137255, 1)
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1948178132]
-position = Vector2(611, 449)
+position = Vector2(584, 312)
 amount = 100
 emission_shape = 3
 emission_rect_extents = Vector2(550, 300)
@@ -156,10 +165,10 @@ scale_amount_max = 4.0
 
 [node name="Btn_Trash" type="Button" parent="." unique_id=934581536]
 layout_mode = 0
-offset_left = 884.0
-offset_top = 555.0
-offset_right = 931.3333
-offset_bottom = 603.48773
+offset_left = 1060.0
+offset_top = 560.0
+offset_right = 1107.3333
+offset_bottom = 608.48773
 scale = Vector2(1.5, 1.5)
 theme_override_styles/normal = SubResource("StyleBoxFlat_v7qp1")
 keep_pressed_outside = true
@@ -283,10 +292,10 @@ text = "Назад"
 
 [node name="Btn_Finish_Game" type="Button" parent="." unique_id=283627485]
 layout_mode = 0
-offset_left = 525.0
-offset_top = 578.0
-offset_right = 668.0
-offset_bottom = 632.0
+offset_left = 506.0
+offset_top = -8.0
+offset_right = 649.0
+offset_bottom = 46.0
 theme = ExtResource("1_g7mx2")
 text = "Завершити гру
 "
@@ -295,10 +304,10 @@ autowrap_trim_flags = 192
 
 [node name="CustomersContainer" type="HBoxContainer" parent="." unique_id=1945530259]
 layout_mode = 0
-offset_left = 79.0
-offset_top = 149.0
-offset_right = 1110.0
-offset_bottom = 318.0
+offset_left = 82.0
+offset_top = 138.0
+offset_right = 1113.0
+offset_bottom = 307.0
 size_flags_vertical = 3
 theme_override_constants/separation = 30
 
@@ -454,10 +463,10 @@ flat = true
 
 [node name="Btn_InGameShop" type="Button" parent="." unique_id=1448022314]
 layout_mode = 0
-offset_left = 1042.0
-offset_top = 471.0
-offset_right = 1123.0
-offset_bottom = 553.0
+offset_left = 1048.0
+offset_top = 436.0
+offset_right = 1129.0
+offset_bottom = 518.0
 icon = ExtResource("4_qsd0w")
 alignment = 0
 icon_alignment = 1

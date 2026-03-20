@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2sf1lvnqmo65"
-path="res://.godot/imported/asteroid_1.png-ee41a4d6d35a07218c3b8a557379f326.ctex"
+uid="uid://b3s0bhg6xqb6o"
+path="res://.godot/imported/ice_planet.png-637285f88480dca4e5ae70bc2cc0cce1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://main_menu_planets/asteroid_1.png"
-dest_files=["res://.godot/imported/asteroid_1.png-ee41a4d6d35a07218c3b8a557379f326.ctex"]
+source_file="res://main_menu_planets_icons/ice_planet.png"
+dest_files=["res://.godot/imported/ice_planet.png-637285f88480dca4e5ae70bc2cc0cce1.ctex"]
 
 [params]
 

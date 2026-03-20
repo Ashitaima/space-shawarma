@@ -25,7 +25,7 @@ var spawn_timer: float = 0.0
 var customer_types = [
 	{ "name": "Бабуся", "patience": 40.0, "pay": 25 },  
 	{ "name": "Студент", "patience": 30.0, "pay": 45 }, 
-	{ "name": "Бізнесмен", "patience": 20.0, "pay": 100 } 
+	{ "name": "Бізнесмен", "patience": 20.0, "pay": 70 } 
 ]
 
 
@@ -33,13 +33,25 @@ var ingredients_list = ["Лаваш", "М'ясо", "Соус", "Огірок", "
 var customer_faces_list = ["👽", "🤖", "🐙", "👨‍🚀", "👾", "👺", "🤠", "🧛"]
 
 
-@onready var label_dish = $TableArea/CurrentDishLabel
+#@onready var label_dish = $TableArea/CurrentDishLabel
 @onready var label_highscore = $HighscoreLabel
 @onready var label_coins = $CoinsLabel 
 @onready var btn_trash = $Btn_Trash
 @onready var btn_finish_game = $Btn_Finish_Game 
 @onready var btn_restart = $Btn_Restart
 @onready var btn_ingame_shop = $Btn_InGameShop
+
+@onready var plate_container = $TableArea/PlateContainer
+
+
+var ingredient_icons = {
+	"Лаваш": preload("res://icons/lavash.png"),
+	"М'ясо": preload("res://icons/cooked_meat.png"),
+	"Соус": preload("res://icons/sauce.png"),
+	"Огірок": preload("res://icons/cucumber.png"),
+	"Помідор": preload("res://icons/tomato.png"),
+	"Сир": preload("res://icons/cheese.png")
+}
 
 func _ready():
 	GlobalSettings.reset_ingredients()
@@ -78,7 +90,7 @@ func _ready():
 	update_ui()
 	
 	# Підключення кнопок інгредієнтів
-	$IngredientsArea/Btn_Pita.pressed.connect(func(): add_ingredient("Лаваш"))
+	$IngredientsArea/Btn_Lavash.pressed.connect(func(): add_ingredient("Лаваш"))
 	$IngredientsArea/Btn_Meat.pressed.connect(func(): add_ingredient("М'ясо"))
 	$IngredientsArea/Btn_Sauce.pressed.connect(func(): add_ingredient("Соус"))
 	$IngredientsArea/Btn_Cucumber.pressed.connect(func(): add_ingredient("Огірок"))
@@ -172,6 +184,7 @@ func add_ingredient(item_name: String):
 	current_stack.append(item_name)
 	update_ui()
 	update_ingredients_ui() # Оновлюємо цифри на кнопках
+	update_visual_plate() #Оновлює тарілку після кліку  --------------------------
 
 func _on_customer_clicked(slot_index: int):
 	# print("Натиснуто на слот №", slot_index)
@@ -206,6 +219,7 @@ func _on_customer_clicked(slot_index: int):
 		
 		current_stack.clear()
 		update_ui()
+		update_visual_plate()
 	else:
 		show_floating_text("Не те!", Color.RED, slot.root_node.global_position)
 		slot.time_left -= 5.0
@@ -232,7 +246,7 @@ func customer_leaves(slot, success: bool):
 			spawn_timer = randf_range(0.5, 1.5)
 	else:
 		# Якщо провал/пішов сам
-		score -= 10
+		score -= 20
 		if score < 0: score = 0
 		show_floating_text("-10", Color.RED, slot.root_node.global_position)
 		update_ui()
@@ -240,10 +254,11 @@ func customer_leaves(slot, success: bool):
 func _on_trash_pressed():
 	current_stack.clear()
 	update_ui()
+	update_visual_plate()
 
 func update_ui():
-	var dish_text = " + ".join(current_stack) 
-	label_dish.text = "На столі: " + dish_text
+	#var dish_text = " + ".join(current_stack)  # Покищо не потрібно, замість цього є update_visual_plate
+	#label_dish.text = "На столі: " + dish_text
 	
 	if score > GlobalSettings.highscore:
 		label_highscore.text = "Рекорд: " + str(score)
@@ -284,8 +299,8 @@ func game_over():
 	
 func update_ingredients_ui():
 	# Оновлюємо текст кнопок, щоб показувати залишок, і вимикаємо їх, якщо 0
-	$IngredientsArea/Btn_Pita.text = "Лаваш (" + str(GlobalSettings.ingredient_counts["Лаваш"]) + ")"
-	$IngredientsArea/Btn_Pita.disabled = GlobalSettings.ingredient_counts["Лаваш"] <= 0
+	$IngredientsArea/Btn_Lavash.text = "Лаваш (" + str(GlobalSettings.ingredient_counts["Лаваш"]) + ")"
+	$IngredientsArea/Btn_Lavash.disabled = GlobalSettings.ingredient_counts["Лаваш"] <= 0
 	
 	$IngredientsArea/Btn_Meat.text = "М'ясо (" + str(GlobalSettings.ingredient_counts["М'ясо"]) + ")"
 	$IngredientsArea/Btn_Meat.disabled = GlobalSettings.ingredient_counts["М'ясо"] <= 0
@@ -306,7 +321,7 @@ func _on_ingame_shop_pressed():
 	# Ставимо гру на паузу
 	get_tree().paused = true 
 	
-	var shop_scene = preload("res://shop.tscn")
+	var shop_scene = preload("res://Scenes/shop.tscn")
 	var shop_instance = shop_scene.instantiate()
 	add_child(shop_instance)
 	
@@ -315,3 +330,18 @@ func _on_ingame_shop_pressed():
 		get_tree().paused = false
 		update_ingredients_ui() # Оновлюємо кнопки після покупок
 	)
+	
+func update_visual_plate():
+	# 1. Очищаємо стіл від старих іконок (щоб вони не нашаровувалися)
+	for child in plate_container.get_children():
+		child.queue_free()
+		
+	# 2. Перебираємо наш current_stack і малюємо нові іконки
+	for item_name in current_stack:
+		var icon = TextureRect.new()
+		icon.texture = ingredient_icons[item_name]
+		#icon.expand_mode = TextureRect.EXPAND_KEEP_ASPECT_CENTERED # Щоб картинки не деформувалися
+		icon.custom_minimum_size = Vector2(64, 64) # Задай розмір іконки (зміни під свої потреби)
+		
+		# Додаємо картинку в контейнер (він сам поставить її в ряд)
+		plate_container.add_child(icon)

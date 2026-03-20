@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2s8lo8lioadm"
-path="res://.godot/imported/asteroid_2.png-fbf3bff5545f7bff26b063ffcc27037e.ctex"
+uid="uid://2pmawkf4shae"
+path="res://.godot/imported/tomato.png-33cdcdbea4a05d3a7f8d9fb22b6b6b33.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://main_menu_planets/asteroid_2.png"
-dest_files=["res://.godot/imported/asteroid_2.png-fbf3bff5545f7bff26b063ffcc27037e.ctex"]
+source_file="res://icons/tomato.png"
+dest_files=["res://.godot/imported/tomato.png-33cdcdbea4a05d3a7f8d9fb22b6b6b33.ctex"]
 
 [params]
 

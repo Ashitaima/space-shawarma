@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqo3mn8wov8vy"
-path="res://.godot/imported/star.png-2ab1158cbbd24c38a3f62cb62507719e.ctex"
+uid="uid://cc6pfefc5dv5m"
+path="res://.godot/imported/sauce.png-88a6f80ee93bfa1981cedc72efee7ef6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://main_menu_planets/star.png"
-dest_files=["res://.godot/imported/star.png-2ab1158cbbd24c38a3f62cb62507719e.ctex"]
+source_file="res://icons/sauce.png"
+dest_files=["res://.godot/imported/sauce.png-88a6f80ee93bfa1981cedc72efee7ef6.ctex"]
 
 [params]
 

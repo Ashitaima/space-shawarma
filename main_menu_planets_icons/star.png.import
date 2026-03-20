@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bg6hun87in8fe"
-path="res://.godot/imported/asteroid_3.png-1ae0614f1e8ab5c73287cd55183ef36b.ctex"
+uid="uid://dqo3mn8wov8vy"
+path="res://.godot/imported/star.png-3ac145ccfbfae57c7a05e4c123fa7e8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://main_menu_planets/asteroid_3.png"
-dest_files=["res://.godot/imported/asteroid_3.png-1ae0614f1e8ab5c73287cd55183ef36b.ctex"]
+source_file="res://main_menu_planets_icons/star.png"
+dest_files=["res://.godot/imported/star.png-3ac145ccfbfae57c7a05e4c123fa7e8f.ctex"]
 
 [params]
 

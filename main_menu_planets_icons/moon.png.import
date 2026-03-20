@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://iqx36dddyw03"
-path="res://.godot/imported/gas_giant.png-35001616b32f441c76313970ab460582.ctex"
+uid="uid://cs0lunb33n2d0"
+path="res://.godot/imported/moon.png-7be68b5bc1a83019a4e23ab60f4bf78f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://main_menu_planets/gas_giant.png"
-dest_files=["res://.godot/imported/gas_giant.png-35001616b32f441c76313970ab460582.ctex"]
+source_file="res://main_menu_planets_icons/moon.png"
+dest_files=["res://.godot/imported/moon.png-7be68b5bc1a83019a4e23ab60f4bf78f.ctex"]
 
 [params]
 
