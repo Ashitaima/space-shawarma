@@ -66,8 +66,8 @@ func _on_buy_time_pressed():
 		GlobalSettings.bought_items.append("time_upgrade")
 		GlobalSettings.save_data()
 		update_ui()
-	else:
-		print("Не вистачає грошей!")
+	#else:
+		#print("Не вистачає грошей!")
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
@@ -83,8 +83,8 @@ func buy_ingredient(item_name: String):
 		GlobalSettings.ingredient_counts[item_name] += 1
 		GlobalSettings.save_data()
 		update_ui()
-	else:
-		print("Не вистачає грошей на " + item_name)
+	#else:
+		#print("Не вистачає грошей на " + item_name)  #потрібно змінити щоб це відображалось в грі а не консолі
 		
 		
 # Функція повного скидання

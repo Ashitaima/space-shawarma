@@ -52,6 +52,14 @@ var ingredient_icons = {
 	"Помідор": preload("res://icons/tomato.png"),
 	"Сир": preload("res://icons/cheese.png")
 }
+var qte_active = false       #  QTE ----------------------
+var qte_speed = 100.0  # Швидкість руху курсора
+var qte_direction = 1  # 1 - вправо, -1 - вліво
+
+@onready var qte_panel = $QTEMiniGame
+@onready var qte_cursor = $QTEMiniGame/QTE_Cursor
+@onready var qte_target = $QTEMiniGame/QTE_Target
+@onready var qte_bg = $QTEMiniGame/QTE_Bg
 
 func _ready():
 	GlobalSettings.reset_ingredients()
@@ -91,7 +99,7 @@ func _ready():
 	
 	# Підключення кнопок інгредієнтів
 	$IngredientsArea/Btn_Lavash.pressed.connect(func(): add_ingredient("Лаваш"))
-	$IngredientsArea/Btn_Meat.pressed.connect(func(): add_ingredient("М'ясо"))
+	$IngredientsArea/Btn_Meat.pressed.connect(_on_meat_button_pressed)
 	$IngredientsArea/Btn_Sauce.pressed.connect(func(): add_ingredient("Соус"))
 	$IngredientsArea/Btn_Cucumber.pressed.connect(func(): add_ingredient("Огірок"))
 	$IngredientsArea/Btn_Tomato.pressed.connect(func(): add_ingredient("Помідор"))
@@ -130,6 +138,16 @@ func _process(delta):
 			
 			if slot.time_left <= 0:
 				customer_leaves(slot, false)
+				
+		if qte_active:       # Логіка для QTE ----
+		# Рухаємо курсор
+			qte_cursor.position.x += qte_speed * delta * qte_direction
+		
+		# Відбиваємося від країв фону
+			if qte_cursor.position.x >= qte_bg.size.x - qte_cursor.size.x:
+				qte_direction = -1
+			elif qte_cursor.position.x <= 0:
+				qte_direction = 1
 
 func spawn_customer():
 	var free_slot = null
@@ -345,3 +363,52 @@ func update_visual_plate():
 		
 		# Додаємо картинку в контейнер (він сам поставить її в ряд)
 		plate_container.add_child(icon)
+		
+		
+func _on_meat_button_pressed():                    # логіка  QTE ---------
+	if is_game_over or qte_active: return
+	
+	# Перевіряємо, чи взагалі є м'ясо в запасах, перш ніж починати різати
+	if GlobalSettings.ingredient_counts["М'ясо"] <= 0:
+		show_floating_text("Закінчилось!", Color.RED, $IngredientsArea.global_position)
+		return
+	
+	# Показуємо панель і вмикаємо рух
+	qte_panel.visible = true
+	qte_active = true
+	qte_cursor.position.x = 0 # Починаємо з лівого краю
+	
+	
+func _input(event):
+	if is_game_over: return
+	
+	# Якщо міні-гра активна і гравець клікнув ЛІВУ кнопку миші
+	if qte_active and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		# одразу вимикаємо QTE
+		qte_active = false
+		qte_panel.visible = false
+		
+		# знаходимо центр курсора
+		var cursor_center = qte_cursor.position.x + (qte_cursor.size.x / 2.0)
+		
+		# знаходимо межі зеленої зони (початок і кінець)
+		var target_start = qte_target.position.x
+		var target_end = qte_target.position.x + qte_target.size.x
+		
+		# перевірка чи потрапив курсор в зону
+		if cursor_center >= target_start and cursor_center <= target_end:
+			show_floating_text("Ідеально!", Color.GREEN, $IngredientsArea.global_position)
+			
+			# Віднімаємо 1 м'ясо з запасів і кладемо на стіл
+			GlobalSettings.ingredient_counts["М'ясо"] -= 1
+			current_stack.append("М'ясо")
+			
+			# Оновлюємо весь інтерфейс
+			update_ui()
+			update_ingredients_ui()
+			update_visual_plate()
+			
+			# можна буде додати тут якісь бонуси при успішному
+			
+		else:
+			show_floating_text("Криво!", Color.RED, $IngredientsArea.global_position)

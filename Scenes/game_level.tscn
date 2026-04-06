@@ -32,9 +32,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = -1.0
-offset_right = 2.0
+offset_left = -7.0
+offset_top = -7.0
+offset_right = -7.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_g7mx2")
@@ -58,7 +59,6 @@ scale = Vector2(2, 2)
 [node name="PlateContainer" type="HBoxContainer" parent="TableArea" unique_id=1588650831]
 layout_mode = 2
 size_flags_vertical = 3
-tooltip_text = "Hello"
 
 [node name="IngredientsArea" type="BoxContainer" parent="." unique_id=2110603029]
 layout_mode = 0
@@ -190,6 +190,7 @@ text = "🪙 0"
 
 [node name="PauseMenu" type="CanvasLayer" parent="." unique_id=283764793]
 process_mode = 3
+visible = false
 
 [node name="Control" type="Control" parent="PauseMenu" unique_id=655626514]
 layout_mode = 3
@@ -327,10 +328,13 @@ offset_bottom = 127.5
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.009287925
-anchor_top = 1.1065089
+anchor_top = 1.0236686
 anchor_right = 0.99071205
-anchor_bottom = 1.1065089
-offset_bottom = 23.0
+anchor_bottom = 1.0236686
+offset_left = 10.0
+offset_top = 14.0
+offset_right = 10.0
+offset_bottom = 37.0
 grow_horizontal = 2
 theme = ExtResource("1_g7mx2")
 autowrap_mode = 3
@@ -471,6 +475,33 @@ icon = ExtResource("4_qsd0w")
 alignment = 0
 icon_alignment = 1
 expand_icon = true
+
+[node name="QTEMiniGame" type="Panel" parent="." unique_id=1765438732]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 399.0
+offset_right = 246.0
+offset_bottom = 431.0
+
+[node name="QTE_Bg" type="ColorRect" parent="QTEMiniGame" unique_id=1697358015]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 192.0
+offset_bottom = 32.0
+color = Color(0.50534403, 0.5053441, 0.50534403, 1)
+
+[node name="QTE_Target" type="ColorRect" parent="QTEMiniGame" unique_id=1912885233]
+layout_mode = 0
+offset_left = 67.0
+offset_right = 117.0
+offset_bottom = 31.0
+
+[node name="QTE_Cursor" type="ColorRect" parent="QTEMiniGame" unique_id=977870385]
+layout_mode = 0
+offset_left = 139.0
+offset_right = 147.0
+offset_bottom = 31.0
+color = Color(0.25882354, 1, 0.047058824, 1)
 
 [connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Resume" to="PauseMenu/Control" method="_on_btn_resume_pressed"]
 [connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Shop" to="PauseMenu/Control" method="_on_btn_shop_pressed"]
