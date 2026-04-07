@@ -43,6 +43,11 @@ var customer_faces_list = ["👽", "🤖", "🐙", "👨‍🚀", "👾", "👺"
 
 @onready var plate_container = $TableArea/PlateContainer
 
+@onready var promo_panel = $PromoPanel
+@onready var promo_list = $PromoPanel/ScrollContainer/PromoList
+
+const WIN_SCORE = 200 # Скільки очок треба для перемоги і промокоду
+
 
 var ingredient_icons = {
 	"Лаваш": preload("res://icons/lavash.png"),
@@ -63,6 +68,9 @@ var qte_direction = 1  # 1 - вправо, -1 - вліво
 
 func _ready():
 	GlobalSettings.reset_ingredients()
+	
+	qte_panel.visible = false # Ховаємо QTE при старті
+	qte_active = false
 	
 	#ініціалізація слотів
 	for i in range(1, 4): 
@@ -238,6 +246,7 @@ func _on_customer_clicked(slot_index: int):
 		current_stack.clear()
 		update_ui()
 		update_visual_plate()
+		check_for_win()  #Перевірка для видачі промокоду
 	else:
 		show_floating_text("Не те!", Color.RED, slot.root_node.global_position)
 		slot.time_left -= 5.0
@@ -284,6 +293,7 @@ func update_ui():
 		label_highscore.text = "Рекорд: " + str(GlobalSettings.highscore)
 	
 	label_coins.text = "🪙 " + str(GlobalSettings.total_coins)
+	%ScoreLabel.text = "Очки: " + str(score)
 
 func update_slot_ui(slot):
 	var order_text = "  ".join(slot.target_order)
@@ -350,18 +360,17 @@ func _on_ingame_shop_pressed():
 	)
 	
 func update_visual_plate():
-	# 1. Очищаємо стіл від старих іконок (щоб вони не нашаровувалися)
+	#Очищаємо стіл від старих іконок (щоб вони не нашаровувалися)
 	for child in plate_container.get_children():
 		child.queue_free()
 		
-	# 2. Перебираємо наш current_stack і малюємо нові іконки
+	#Перебираємо наш current_stack і малюємо нові іконки
 	for item_name in current_stack:
 		var icon = TextureRect.new()
 		icon.texture = ingredient_icons[item_name]
 		#icon.expand_mode = TextureRect.EXPAND_KEEP_ASPECT_CENTERED # Щоб картинки не деформувалися
-		icon.custom_minimum_size = Vector2(64, 64) # Задай розмір іконки (зміни під свої потреби)
+		icon.custom_minimum_size = Vector2(64, 64)
 		
-		# Додаємо картинку в контейнер (він сам поставить її в ряд)
 		plate_container.add_child(icon)
 		
 		
@@ -412,3 +421,27 @@ func _input(event):
 			
 		else:
 			show_floating_text("Криво!", Color.RED, $IngredientsArea.global_position)
+			
+func check_for_win():
+	# Якщо ми набрали потрібну кількість очок і гра ще не закінчена
+	if score >= WIN_SCORE and not is_game_over:
+		is_game_over = true # Зупиняємо таймери і клієнтів
+		
+
+		var new_promo = generate_promo_code()
+		
+		GlobalSettings.earned_promos.append(new_promo)
+		GlobalSettings.save_data() 
+		
+		show_floating_text("ПЕРЕМОГА! Твій код: " + new_promo, Color.GOLD, $TableArea.global_position + Vector2(0, -100))
+		
+		#чекаємо і виходимо в меню
+		await get_tree().create_timer(2.0).timeout
+		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn") # Перевір чи правильний шлях до меню!
+
+func generate_promo_code() -> String:
+	var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	var code = "SHAW-"
+	for i in range(5): # Додасть 5 випадкових символів
+		code += chars[randi() % chars.length()]
+	return code

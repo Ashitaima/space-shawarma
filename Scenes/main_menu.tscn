@@ -43,6 +43,13 @@ texture_margin_top = 6.0
 texture_margin_right = 6.0
 texture_margin_bottom = 6.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_84iac"]
+texture = ExtResource("4_tt8ml")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dy7ct"]
 texture = ExtResource("4_tt8ml")
 texture_margin_left = 6.0
@@ -3630,6 +3637,13 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5n0dv"]
+texture = ExtResource("4_tt8ml")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
 [node name="MainMenu" type="Control" unique_id=1417766535]
 layout_mode = 3
 anchors_preset = 15
@@ -3692,10 +3706,10 @@ text = "Назад"
 [node name="MainMenu" type="VBoxContainer" parent="." unique_id=661320977]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.016059028
-anchor_top = 0.053597346
-anchor_right = 0.016059028
-anchor_bottom = 0.053597346
+anchor_left = 0.024305556
+anchor_top = -0.0077160494
+anchor_right = 0.024305556
+anchor_bottom = 0.052469134
 offset_left = 400.0
 offset_top = 257.0
 offset_right = 551.5
@@ -3723,6 +3737,12 @@ text = "Магазин
 "
 icon_alignment = 1
 
+[node name="Btn_MyPromos" type="Button" parent="MainMenu" unique_id=1474671273]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_84iac")
+text = "Мої промокоди"
+
 [node name="Btn_Settings" type="Button" parent="MainMenu" unique_id=1344763936]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
@@ -3745,7 +3765,7 @@ script = ExtResource("5_fmarx")
 motion_mirroring = Vector2(2000, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1701647881]
-position = Vector2(562, 335.00003)
+position = Vector2(562, 337)
 scale = Vector2(1.203426, 0.7395729)
 texture = SubResource("GradientTexture2D_cm266")
 
@@ -3885,6 +3905,51 @@ scale = Vector2(0.7349999, 0.7349999)
 sprite_frames = SubResource("SpriteFrames_cc7ik")
 animation = &"star_anim"
 script = ExtResource("25_y17f6")
+
+[node name="PromoPanel" type="Panel" parent="." unique_id=2022171808]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 1.0
+offset_right = -3.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PromoPanel" unique_id=896335189]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 117.0
+offset_top = 117.0
+offset_right = -835.0
+offset_bottom = -493.0
+text = "Твої виграні промокоди"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PromoPanel" unique_id=814320426]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 237.0
+offset_right = 422.0
+offset_bottom = 375.0
+
+[node name="PromoList" type="VBoxContainer" parent="PromoPanel/ScrollContainer" unique_id=726824836]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Btn_ClosePromos" type="Button" parent="PromoPanel" unique_id=1796552607]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 528.0
+offset_right = 310.0
+offset_bottom = 589.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_5n0dv")
+text = "Повернутись в головне меню"
 
 [connection signal="gui_input" from="Titel" to="." method="_on_titel_gui_input"]
 [connection signal="value_changed" from="Settings_Panel/VBoxContainer/Volume_Slider" to="." method="_on_volume_slider_value_changed"]

@@ -1,6 +1,8 @@
 extends Control
 
 @onready var titel = $Titel 
+@onready var promo_panel = %PromoPanel
+@onready var promo_list = %PromoList
 
 var speed = 2.0
 var height = 10.0
@@ -16,7 +18,9 @@ func _ready():
 	
 	$Settings_Panel/VBoxContainer/Volume_Slider.value = GlobalSettings.current_volume_db_index
 	$Settings_Panel/VBoxContainer/Fullscreen_Checkbox.button_pressed = GlobalSettings.is_fullscreen
-
+	%Btn_MyPromos.pressed.connect(_on_promos_pressed)
+	%PromoPanel/Btn_ClosePromos.pressed.connect(func(): promo_panel.visible = false)
+	
 	# Налаштування для тексту
 	if titel: # Запобіжник
 		title_start_y = titel.position.y
@@ -33,7 +37,7 @@ func _process(delta):
 	var offset = sin(time * speed) * height
 	titel.position.y = title_start_y + offset
 
-# === АНІМАЦІЯ ТЕКСТУ (КЛІК) ===
+
 func _on_titel_gui_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if is_bouncing:
@@ -60,6 +64,9 @@ func _on_btn_Start_pressed():
 
 func _on_btn_Shop_pressed():
 	get_tree().change_scene_to_file("res://Scenes/shop.tscn")
+	
+func _on_btn_My_Promos_pressed():
+	$PromoPanel.visible = true
 
 func _on_btn_Settings_pressed():
 	$Settings_Panel.visible = true
@@ -79,3 +86,25 @@ func _on_volume_slider_value_changed(value):
 # Повний екран
 func _on_fullscreen_check_toggled(toggled_on):
 	GlobalSettings.update_fullscreen(toggled_on)
+
+func _on_promos_pressed():
+	promo_panel.visible = true
+	
+	#Очищаємо список від старих записів (щоб не дублювалися)
+	for child in promo_list.get_children():
+		child.queue_free()
+		
+	#Якщо кодів ще немає
+	if GlobalSettings.earned_promos.is_empty():
+		var lbl = Label.new()
+		lbl.text = "Ти ще не виграв жодного промокоду. Грай краще!"
+		promo_list.add_child(lbl)
+		return
+		
+
+	for code in GlobalSettings.earned_promos:
+		var line_edit = LineEdit.new()
+		line_edit.text = code
+		line_edit.editable = false #Забороняємо змінювати код
+		line_edit.custom_minimum_size = Vector2(200, 40)
+		promo_list.add_child(line_edit)

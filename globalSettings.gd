@@ -2,6 +2,8 @@ extends Node
 
 const SAVE_PATH = "user://global_save.cfg" # Єдиний файл для всього
 
+var earned_promos: Array = []
+
 # Налаштування
 var current_volume_db_index = 0.5
 var is_fullscreen = false
@@ -70,6 +72,7 @@ func save_data():
 	config.set_value("GameData", "highscore", highscore)
 	config.set_value("GameData", "coins", total_coins)
 	config.set_value("GameData", "bought_items", bought_items)
+	config.set_value("GameData", "earned_promos", earned_promos)
 	
 	config.save(SAVE_PATH)
 
@@ -86,6 +89,7 @@ func load_data():
 		highscore = config.get_value("GameData", "highscore", 0)
 		total_coins = config.get_value("GameData", "coins", 0)
 		bought_items = config.get_value("GameData", "bought_items", [])
+		earned_promos = config.get_value("GameData", "earned_promos", [])
 		
 		# Застосовуємо налаштування
 		update_volume(current_volume_db_index)
