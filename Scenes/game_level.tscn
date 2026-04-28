@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://dpujfrevxhx3v" path="res://pause_menu.gd" id="2_df5pp"]
 [ext_resource type="Texture2D" uid="uid://cqd1hi7abubh7" path="res://icons/trash_btn_icon.png" id="3_ibsu8"]
 [ext_resource type="Texture2D" uid="uid://dr4fnu2kllt0w" path="res://icons/free-icon-shopping-cart-of-checkered-design-34627.png" id="4_qsd0w"]
+[ext_resource type="Texture2D" uid="uid://csen6sjgq6a0e" path="res://icons/knife32.png" id="6_5x8s8"]
+[ext_resource type="Texture2D" uid="uid://cinyx4lx033p4" path="res://icons/spoon32.png" id="7_g3g87"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwyfi"]
 bg_color = Color(0.36926877, 0.22772616, 0.022060297, 1)
@@ -35,10 +37,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -7.0
-offset_top = -7.0
-offset_right = -7.0
-offset_bottom = -6.0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_g7mx2")
@@ -481,10 +483,10 @@ expand_icon = true
 [node name="QTEMiniGame" type="Panel" parent="." unique_id=1765438732]
 visible = false
 layout_mode = 0
-offset_left = 28.0
-offset_top = 355.0
-offset_right = 219.0
-offset_bottom = 387.0
+offset_left = 270.0
+offset_top = 473.0
+offset_right = 461.0
+offset_bottom = 505.0
 
 [node name="QTE_Bg" type="ColorRect" parent="QTEMiniGame" unique_id=1697358015]
 layout_mode = 0
@@ -531,6 +533,52 @@ offset_top = 404.0
 offset_right = 1129.0
 offset_bottom = 449.0
 text = "Помити стіл"
+
+[node name="Btn_WashKnife" type="TextureButton" parent="." unique_id=2012603614]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 20.0
+offset_top = 395.0
+offset_right = 80.0
+offset_bottom = 456.875
+texture_normal = ExtResource("6_5x8s8")
+stretch_mode = 0
+
+[node name="KnifeBar" type="ProgressBar" parent="Btn_WashKnife" unique_id=873392552]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.423
+anchor_top = -0.388
+anchor_right = -0.423
+anchor_bottom = -0.388
+offset_left = 16.380001
+offset_top = -0.9924984
+offset_right = 98.380005
+offset_bottom = 19.007502
+
+[node name="Btn_WashSpoon" type="TextureButton" parent="." unique_id=1372751159]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 113.0
+offset_top = 397.0
+offset_right = 174.0
+offset_bottom = 458.0
+texture_normal = ExtResource("7_g3g87")
+stretch_mode = 0
+
+[node name="SpoonBar" type="ProgressBar" parent="Btn_WashSpoon" unique_id=12985249]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.056
+anchor_top = -0.279
+anchor_right = -2.056
+anchor_bottom = -0.279
+offset_left = 116.416
+offset_top = -9.980999
+offset_right = 194.416
+offset_bottom = 10.019001
 
 [connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Resume" to="PauseMenu/Control" method="_on_btn_resume_pressed"]
 [connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Shop" to="PauseMenu/Control" method="_on_btn_shop_pressed"]
