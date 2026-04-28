@@ -27,6 +27,9 @@ bg_color = Color(0.68717164, 0.59826165, 0.18998307, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7qp1"]
 bg_color = Color(1, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6mi8o"]
+bg_color = Color(0.39126444, 0.18193716, 0.036236007, 1)
+
 [node name="GameLevel" type="Control" unique_id=1248837389]
 layout_mode = 3
 anchors_preset = 15
@@ -190,6 +193,7 @@ text = "🪙 0"
 
 [node name="PauseMenu" type="CanvasLayer" parent="." unique_id=283764793]
 process_mode = 3
+visible = false
 
 [node name="Control" type="Control" parent="PauseMenu" unique_id=655626514]
 layout_mode = 3
@@ -292,10 +296,10 @@ text = "Назад"
 
 [node name="Btn_Finish_Game" type="Button" parent="." unique_id=283627485]
 layout_mode = 0
-offset_left = 1024.0
-offset_top = 399.0
-offset_right = 1149.0
-offset_bottom = 453.0
+offset_left = 1021.0
+offset_top = 275.0
+offset_right = 1146.0
+offset_bottom = 329.0
 theme = ExtResource("1_g7mx2")
 text = "Завершити гру
 "
@@ -509,6 +513,24 @@ offset_top = 26.0
 offset_right = 204.0
 offset_bottom = 60.0
 text = "Очки:"
+
+[node name="DirtBar" type="ProgressBar" parent="." unique_id=586173312]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 986.0
+offset_top = 344.0
+offset_right = 1131.0
+offset_bottom = 394.0
+theme_override_styles/background = SubResource("StyleBoxFlat_6mi8o")
+
+[node name="Btn_Clean" type="Button" parent="." unique_id=1832418256]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 991.0
+offset_top = 404.0
+offset_right = 1129.0
+offset_bottom = 449.0
+text = "Помити стіл"
 
 [connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Resume" to="PauseMenu/Control" method="_on_btn_resume_pressed"]
 [connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Shop" to="PauseMenu/Control" method="_on_btn_shop_pressed"]

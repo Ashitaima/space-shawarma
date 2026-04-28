@@ -32,6 +32,14 @@ var customer_types = [
 var ingredients_list = ["Лаваш", "М'ясо", "Соус", "Огірок", "Помідор", "Сир"]
 var customer_faces_list = ["👽", "🤖", "🐙", "👨‍🚀", "👾", "👺", "🤠", "🧛"]
 
+# Механіка забруднення столу
+var current_dirt: float = 0.0
+var max_dirt: float = 100.0
+var dirt_per_action: float = 20.0 # 20% бруду за кожен інгредієнт
+
+@onready var dirt_bar = %DirtBar
+@onready var btn_clean = %Btn_Clean
+
 
 #@onready var label_dish = $TableArea/CurrentDishLabel
 @onready var label_highscore = $HighscoreLabel
@@ -112,6 +120,9 @@ func _ready():
 	$IngredientsArea/Btn_Cucumber.pressed.connect(func(): add_ingredient("Огірок"))
 	$IngredientsArea/Btn_Tomato.pressed.connect(func(): add_ingredient("Помідор"))
 	$IngredientsArea/Btn_Cheese.pressed.connect(func(): add_ingredient("Сир"))
+	
+	%Btn_Clean.pressed.connect(_on_clean_pressed)
+	update_dirt_ui()
 	
 	btn_restart.pressed.connect(_on_restart_pressed)
 	btn_trash.pressed.connect(_on_trash_pressed)
@@ -200,6 +211,11 @@ func generate_order(slot):
 func add_ingredient(item_name: String):
 	if is_game_over: return
 	
+	# Перевірка чистоти стола
+	if current_dirt >= max_dirt:
+		show_floating_text("Помий стіл!", Color.RED, dirt_bar.global_position)
+		return # Зупиняємо функцію, інгредієнт не додається
+	
 	# Перевіряємо чи є продукт
 	if GlobalSettings.ingredient_counts[item_name] <= 0:
 		show_floating_text("Закінчилось!", Color.RED, $IngredientsArea.global_position)
@@ -210,7 +226,9 @@ func add_ingredient(item_name: String):
 	current_stack.append(item_name)
 	update_ui()
 	update_ingredients_ui() # Оновлюємо цифри на кнопках
-	update_visual_plate() #Оновлює тарілку після кліку  --------------------------
+	update_visual_plate() #Оновлює тарілку після кліку
+	current_dirt += dirt_per_action
+	update_dirt_ui()
 
 func _on_customer_clicked(slot_index: int):
 	# print("Натиснуто на слот №", slot_index)
@@ -377,6 +395,11 @@ func update_visual_plate():
 func _on_meat_button_pressed():                    # логіка  QTE ---------
 	if is_game_over or qte_active: return
 	
+	# Перевірка на забрудненість столу, якщо стіл забруднений, то QTE не почнеться
+	if current_dirt >= max_dirt:
+		show_floating_text("Помий стіл!", Color.RED, dirt_bar.global_position)
+		return
+		
 	# Перевіряємо, чи взагалі є м'ясо в запасах, перш ніж починати різати
 	if GlobalSettings.ingredient_counts["М'ясо"] <= 0:
 		show_floating_text("Закінчилось!", Color.RED, $IngredientsArea.global_position)
@@ -416,6 +439,8 @@ func _input(event):
 			update_ui()
 			update_ingredients_ui()
 			update_visual_plate()
+			current_dirt += dirt_per_action
+			update_dirt_ui()
 			
 			# можна буде додати тут якісь бонуси при успішному
 			
@@ -445,3 +470,21 @@ func generate_promo_code() -> String:
 	for i in range(5): # Додасть 5 випадкових символів
 		code += chars[randi() % chars.length()]
 	return code
+	
+func update_dirt_ui():
+	# Оновлюємо значення на шкалі
+	dirt_bar.value = current_dirt
+	
+	# Якщо стіл повністю брудний, можемо змінити колір шкали на червоний для привернення уваги
+	if current_dirt >= max_dirt:
+		dirt_bar.modulate = Color.RED
+	else:
+		dirt_bar.modulate = Color.WHITE # Звичайний колір
+
+func _on_clean_pressed():
+	if is_game_over: return
+	
+	# Очищаємо стіл
+	current_dirt = 0.0
+	update_dirt_ui()
+	show_floating_text("Стіл чистий!", Color.CYAN, btn_clean.global_position)
