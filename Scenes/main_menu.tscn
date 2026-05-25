@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://bl03b6mqthldh" path="res://main_menu_scripts/gas_giant_script.gd" id="23_vj5y7"]
 [ext_resource type="Texture2D" uid="uid://dqo3mn8wov8vy" path="res://main_menu_planets_icons/star.png" id="24_3l6me"]
 [ext_resource type="Script" uid="uid://dk5kaws4nqnqv" path="res://main_menu_scripts/star_script.gd" id="25_y17f6"]
+[ext_resource type="AudioStream" uid="uid://cukxcptqur5mg" path="res://music/The_Lantern_s_Pulse.mp3" id="26_5n0dv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rhts7"]
 font_size = 64
@@ -3718,6 +3719,7 @@ scale = Vector2(2, 2)
 metadata/_edit_use_anchors_ = true
 
 [node name="Btn_Start" type="Button" parent="MainMenu" unique_id=1273479383]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_vertical = 8
@@ -3728,6 +3730,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Btn_Shop" type="Button" parent="MainMenu" unique_id=1614349299]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_vertical = 4
@@ -3744,6 +3747,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_84iac")
 text = "Мої промокоди"
 
 [node name="Btn_Settings" type="Button" parent="MainMenu" unique_id=1344763936]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme = ExtResource("3_ne6ao")
@@ -3752,6 +3756,7 @@ text = "Налаштування
 "
 
 [node name="Btn_Exit" type="Button" parent="MainMenu" unique_id=505103400]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme = ExtResource("3_ne6ao")
@@ -3950,6 +3955,10 @@ offset_right = 310.0
 offset_bottom = 589.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_5n0dv")
 text = "Повернутись в головне меню"
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="." unique_id=1690981307]
+stream = ExtResource("26_5n0dv")
+autoplay = true
 
 [connection signal="gui_input" from="Titel" to="." method="_on_titel_gui_input"]
 [connection signal="value_changed" from="Settings_Panel/VBoxContainer/Volume_Slider" to="." method="_on_volume_slider_value_changed"]

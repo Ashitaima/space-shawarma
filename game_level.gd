@@ -222,17 +222,20 @@ func add_ingredient(item_name: String):
 	
 	# Перевірка чистоти стола
 	if current_dirt >= max_dirt:
+		AudioManager.play_sfx(AudioManager.sfx_error)
 		show_floating_text("Помий стіл!", Color.RED, dirt_bar.global_position)
 		return # Зупиняємо функцію, інгредієнт не додається
 		
 	if item_name == "Соус":
 		if spoon_dirt >= 100:
+			AudioManager.play_sfx(AudioManager.sfx_error)
 			show_floating_text("Помий ложку!", Color.ORANGE, %SpoonBar.global_position)
 			return
 		spoon_dirt += spoon_dirt_rate
 		
 	elif item_name != "Лаваш": # Овочі (Огірок, Помідор, Сир) ріжемо ножем
 		if knife_dirt >= 100:
+			AudioManager.play_sfx(AudioManager.sfx_error)
 			show_floating_text("Помий ніж!", Color.ORANGE, %KnifeBar.global_position)
 			return
 		knife_dirt += knife_dirt_rate
@@ -244,6 +247,7 @@ func add_ingredient(item_name: String):
 		
 	# Віднімаємо 1 продукт
 	GlobalSettings.ingredient_counts[item_name] -= 1
+	AudioManager.play_sfx(AudioManager.sfx_cut)
 	current_stack.append(item_name)
 	update_ui()
 	update_ingredients_ui() # Оновлюємо цифри на кнопках
@@ -418,11 +422,13 @@ func _on_meat_button_pressed():                    # логіка  QTE ---------
 	if is_game_over or qte_active: return
 	
 	if knife_dirt >= 100:
+		AudioManager.play_sfx(AudioManager.sfx_error)
 		show_floating_text("Помий ніж!", Color.ORANGE, %KnifeBar.global_position)
 		return
 		
 	# Перевірка на забрудненість столу, якщо стіл забруднений, то QTE не почнеться
 	if current_dirt >= max_dirt:
+		AudioManager.play_sfx(AudioManager.sfx_error)
 		show_floating_text("Помий стіл!", Color.RED, dirt_bar.global_position)
 		return
 		
@@ -458,6 +464,7 @@ func _input(event):
 			show_floating_text("Ідеально!", Color.GREEN, $IngredientsArea.global_position)
 			
 			# Віднімаємо 1 м'ясо з запасів і кладемо на стіл
+			AudioManager.play_sfx(AudioManager.sfx_success_qte)
 			GlobalSettings.ingredient_counts["М'ясо"] -= 1
 			current_stack.append("М'ясо")
 			

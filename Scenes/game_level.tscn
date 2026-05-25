@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dr4fnu2kllt0w" path="res://icons/free-icon-shopping-cart-of-checkered-design-34627.png" id="4_qsd0w"]
 [ext_resource type="Texture2D" uid="uid://csen6sjgq6a0e" path="res://icons/knife32.png" id="6_5x8s8"]
 [ext_resource type="Texture2D" uid="uid://cinyx4lx033p4" path="res://icons/spoon32.png" id="7_g3g87"]
+[ext_resource type="AudioStream" uid="uid://b8tyuqhbha8dh" path="res://music/monume-space-ambient-498030.mp3" id="8_g3g87"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwyfi"]
 bg_color = Color(0.36926877, 0.22772616, 0.022060297, 1)
@@ -195,7 +196,6 @@ text = "🪙 0"
 
 [node name="PauseMenu" type="CanvasLayer" parent="." unique_id=283764793]
 process_mode = 3
-visible = false
 
 [node name="Control" type="Control" parent="PauseMenu" unique_id=655626514]
 layout_mode = 3
@@ -579,6 +579,10 @@ offset_left = 116.416
 offset_top = -9.980999
 offset_right = 194.416
 offset_bottom = 10.019001
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="." unique_id=1369920455]
+stream = ExtResource("8_g3g87")
+autoplay = true
 
 [connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Resume" to="PauseMenu/Control" method="_on_btn_resume_pressed"]
 [connection signal="pressed" from="PauseMenu/Control/VMenu/Btn_Shop" to="PauseMenu/Control" method="_on_btn_shop_pressed"]

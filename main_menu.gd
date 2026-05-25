@@ -21,9 +21,18 @@ func _ready():
 	%Btn_MyPromos.pressed.connect(_on_promos_pressed)
 	%PromoPanel/Btn_ClosePromos.pressed.connect(func(): promo_panel.visible = false)
 	
+	%Btn_Start.pressed.connect(play_menu_click)
+	%Btn_Shop.pressed.connect(play_menu_click)
+	%Btn_Settings.pressed.connect(play_menu_click)
+	%Btn_MyPromos.pressed.connect(play_menu_click)
+	%Btn_Exit.pressed.connect(play_menu_click)
+	
 	# Налаштування для тексту
 	if titel: # Запобіжник
 		title_start_y = titel.position.y
+		
+func play_menu_click():
+	AudioManager.play_sfx(AudioManager.sfx_click, 0.3)  #пропустити перші 0.3 секунди
 
 # Анімація тексту 
 func _process(delta):

@@ -22,6 +22,7 @@ config/icon="res://icons/icon.svg"
 [autoload]
 
 GlobalSettings="*res://globalSettings.gd"
+AudioManager="*uid://c5582a0hrm8d8"
 
 [display]
 
